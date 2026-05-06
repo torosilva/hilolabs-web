@@ -32,7 +32,7 @@ Vendemos **7 agentes de IA** integrados a una plataforma de moda. No son chatbot
 | 3 | Content Generation | Genera textos e imágenes de producto | Equipo de la marca |
 | 4 | Sizing & Fit | Sugiere talla correcta | Cliente final |
 | 5 | Virtual Try-On & Body-Aware Stylist | Probador virtual con foto real + cross-sell según tipo de cuerpo | Cliente final |
-| 6 | Dynamic Pricing | Ajusta precios | Sistema (con guardrails) |
+| 6 | AI Sales Closer | Convierte leads inbound de WhatsApp en venta cerrada (digital, sin humano) | Cliente final / Equipo de la marca |
 | 7 | Executive Dashboard | Responde preguntas sobre métricas | Founder de la marca |
 
 El copy comercial vive en `messages/en.json` y `messages/es.json` bajo el namespace `AI`. **Nunca** te alejes de esa promesa sin avisar.
@@ -800,28 +800,285 @@ Devuelve JSON estructurado.
 
 ---
 
-### 🔴 Agente 6 — Dynamic Pricing
+### 🟡 Agente 6 — AI Sales Closer
 
 #### Promesa pública
-> "Ajusta precios en tiempo real según inventario, velocidad de venta y competencia."
+> "Convierte leads inbound de WhatsApp en ventas sin intervención humana. Da seguimiento por email y WhatsApp con cadencia inteligente; si tras varios toques la clienta no compra, ofrece un descuento dentro de los límites de la marca y cierra la venta por canal digital."
+
+#### Por qué importa
+
+Hoy la clienta escribe a WhatsApp pidiendo info → alguien responde tarde → se enfría → no compra. Este agente:
+
+1. **Responde en segundos** con info del producto + fotos + tallas + envío.
+2. **Da seguimiento automático** (email + WhatsApp) si no cierra.
+3. **Sabe cuándo subir la oferta**: tras N toques sin conversión, ofrece descuento dentro de límites por marca.
+4. **Cierra digital**: genera link de pago/checkout personalizado y verifica conversión.
+5. **Aprende qué funciona**: trackea por canal, mensaje y oferta para optimizar.
+
+#### Diferencia con Agente 1 (Customer Service)
+
+| Agente | Objetivo | Triggers | Tono |
+|---|---|---|---|
+| **1 — Customer Service** | Resolver dudas (post-venta o pre-venta) | Mensaje entrante con duda | Asesor, neutral |
+| **6 — Sales Closer** | **Convertir** lead → venta | Lead inbound con intención de compra | Vendedor, persuasivo, con urgencia controlada |
+
+El **Orquestador** decide: si el mensaje pinta intención de compra (preguntó por precio, talla, disponibilidad, link) → enruta a Agente 6. Si es duda post-venta o queja → Agente 1.
 
 #### Stack
-- **MVP:** reglas heurísticas.
-- **Fase 2:** Reinforcement Learning.
 
-#### Reglas duras (siempre)
-- Nunca por debajo de `costo + margen_minimo` (config por marca).
-- Cambios > 10% requieren aprobación humana.
-- Máximo 1 cambio de precio por SKU por día (no marear al cliente).
-- Si baja > 5% → notificar a clientes en wishlist.
+| Componente | Tecnología |
+|---|---|
+| Modelo conversacional | **Claude Sonnet 4.6** |
+| Canal WhatsApp | **Twilio WhatsApp Business API** |
+| Canal Email | **Resend** (o SendGrid) |
+| Máquina de estados de cadencia | **Temporal** (recomendado) o BullMQ + Redis |
+| CRM mínimo de leads | tabla `leads` en Postgres (descrita abajo) |
+| Generación de checkout | API de Shopify (draft orders + discount codes) |
+| Tracking de eventos | Segment / propio + tabla `lead_events` |
 
-#### MVP — algoritmo simple
+#### Máquina de estados — la cadencia
+
 ```
-Si inventario > 80% del comprado y han pasado > 30 días:
-   sugerir descuento de 10%
-Si inventario < 20% y velocidad alta:
-   sugerir subir precio 5%
+                  [NEW_LEAD]
+                      │
+                      ▼
+                 [T+0: WA INSTANT]            ← responde en < 30s con info pedida
+                      │
+              ¿compra en 1h?
+              ┌───────┴────────┐
+              sí               no
+              ▼                ▼
+          [WON]           [T+1h: EMAIL #1]    ← refuerza valor + foto + reseña
+                                │
+                          ¿compra en 24h?
+                          ┌─────┴──────┐
+                          sí           no
+                          ▼            ▼
+                       [WON]      [T+24h: WA #2]   ← maneja objeciones
+                                       │
+                                ¿compra en 48h?
+                                ┌──────┴──────┐
+                                sí            no
+                                ▼             ▼
+                             [WON]      [T+72h: WA #3 con DESCUENTO]
+                                              │ (dentro de límites de marca)
+                                       ¿compra en 48h?
+                                       ┌──────┴──────┐
+                                       sí            no
+                                       ▼             ▼
+                                    [WON]       [T+7d: EMAIL DE CIERRE]
+                                                      │
+                                               ¿compra en 7d?
+                                               ┌──────┴──────┐
+                                               sí            no
+                                               ▼             ▼
+                                            [WON]         [LOST → nurture mensual]
 ```
+
+**Reglas de la cadencia (configurables por marca):**
+
+- Pausar si el lead pide explícitamente que no le escriban (`STOP`, "no me escriban más").
+- Pausar si responde y reactiva conversación (vuelve a Agente 6 conversacional).
+- Quiet hours por timezone (no enviar entre 22:00–8:00 hora de la clienta).
+- Máximo 1 mensaje por canal por día.
+- Total máximo de toques en la secuencia: **5** (configurable por marca, hard cap 7).
+
+#### Política de descuentos — guardrails
+
+```json
+// brands.config.discount_policy
+{
+  "enabled": true,
+  "max_discount_pct": 15,          // techo por marca
+  "trigger_after_touches": 3,      // cuándo ofrecer
+  "stack_with_existing": false,    // no acumular con promos vigentes
+  "min_order_value": 800,          // no aplicar bajo este ticket
+  "expires_hours": 48,             // urgencia controlada
+  "exclusions": ["FX-LIMITED-*"]   // SKUs sin descuento
+}
+```
+
+El agente **nunca** ofrece descuento mayor al `max_discount_pct` ni fuera de las condiciones. Si la clienta exige más, escala a humano.
+
+#### Inputs / Outputs
+
+```json
+// Evento entrante (webhook Twilio o trigger de cadencia)
+{
+  "brand_id": "uuid",
+  "lead_id": "uuid",
+  "channel": "whatsapp",
+  "trigger": "inbound_message" | "cadence_step",
+  "message_text": "¿tienen el vestido fucsia talla M?",
+  "context": {
+    "product_skus_mentioned": ["FX-VST-091"],
+    "previous_touches": 0
+  }
+}
+
+// Acción que el agente decide tomar
+{
+  "action": "reply",
+  "channel": "whatsapp",
+  "content": "¡Hola Lucía! Sí tenemos el vestido fucsia en talla M, listo para envío...",
+  "attachments": ["product_image_url"],
+  "next_step": {
+    "type": "schedule",
+    "step": "EMAIL_1",
+    "in_seconds": 3600
+  },
+  "lead_state_update": {
+    "stage": "engaged",
+    "interest_score": 0.72
+  }
+}
+```
+
+#### Schema adicional
+
+```sql
+CREATE TABLE leads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  brand_id UUID NOT NULL REFERENCES brands(id),
+  customer_id UUID REFERENCES customers(id),  -- null si aún no se identifica
+  source TEXT NOT NULL,                  -- 'whatsapp_inbound' | 'web_form' | 'ig_dm'
+  stage TEXT NOT NULL DEFAULT 'new',     -- 'new'|'engaged'|'objection'|'discount_offered'|'won'|'lost'|'paused'
+  interest_score NUMERIC(3,2),
+  products_of_interest JSONB,            -- SKUs mencionados
+  cadence_state JSONB,                   -- {step: "WA_3", scheduled_at: "..."}
+  discount_offered JSONB,                -- {pct: 10, code: "LUCIA15", expires_at: "..."}
+  closed_order_id TEXT,                  -- id de Shopify si cerró
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+CREATE INDEX ON leads (brand_id, stage);
+
+CREATE TABLE lead_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lead_id UUID NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+  event_type TEXT NOT NULL,              -- 'inbound_msg'|'sent_msg'|'opened_email'|'clicked_link'|'discount_offered'|'purchased'
+  channel TEXT,
+  metadata JSONB,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Cadencia (próximos pasos programados)
+CREATE TABLE cadence_jobs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lead_id UUID NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+  step TEXT NOT NULL,                    -- 'WA_INSTANT'|'EMAIL_1'|'WA_2'|'WA_3_DISCOUNT'|'EMAIL_FINAL'
+  scheduled_at TIMESTAMPTZ NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending', -- 'pending'|'sent'|'cancelled'|'failed'
+  executed_at TIMESTAMPTZ
+);
+CREATE INDEX ON cadence_jobs (status, scheduled_at);
+```
+
+#### System prompt (template)
+
+```
+Eres vendedora digital de {{brand.name}}. Tu objetivo es CERRAR la venta sin
+intervención humana, sonando como una asesora real, no como un bot.
+
+VOZ DE MARCA:
+{{brand.config.voice}}
+
+CONTEXTO DE LA LEAD:
+- Nombre: {{lead.name | "no proporcionado"}}
+- Productos de interés: {{lead.products_of_interest}}
+- Toques previos: {{lead.touches_count}}
+- Etapa actual: {{lead.stage}}
+- Última objeción detectada: {{lead.last_objection | "ninguna"}}
+
+POLÍTICA DE DESCUENTOS DE LA MARCA:
+- Habilitado: {{brand.discount_policy.enabled}}
+- Tope: {{brand.discount_policy.max_discount_pct}}%
+- Ofrecer solo después de: {{brand.discount_policy.trigger_after_touches}} toques sin conversión
+- {{si ya se ofreció: "YA ofreciste {{discount.pct}}% (código {{discount.code}}) — NO subas más."}}
+
+REGLAS NO NEGOCIABLES:
+1. Mensajes cortos (máx 3 líneas en WhatsApp).
+2. Una pregunta a la vez.
+3. NUNCA inventes stock, talla, precio o tiempo de entrega → usa tools.
+4. NUNCA ofrezcas descuento mayor al tope ni antes del trigger.
+5. Si la clienta pide hablar con humano, dice "no", o pide STOP → ejecuta tool `pause_cadence` y `escalate_to_human`.
+6. Cierra siempre con CTA clara (link de checkout, no "¿te interesa?").
+7. Detecta objeciones (precio, talla, envío, calidad) y resuelve con info concreta.
+
+TU SIGUIENTE ACCIÓN:
+{{cadence_step_instructions}}
+
+Responde con JSON: {action, content, tool_calls?, next_state}
+```
+
+#### Tools
+
+```python
+tools = [
+    {"name": "get_product_info", "description": "Stock, tallas, precio, fotos, descripción"},
+    {"name": "check_shipping", "description": "Tiempo y costo de envío al CP de la lead"},
+    {"name": "create_checkout_link", "description": "Genera link de Shopify checkout (draft order) opcionalmente con discount_code"},
+    {"name": "issue_discount_code", "description": "Crea código de descuento personalizado dentro de la política de la marca"},
+    {"name": "schedule_next_touch", "description": "Programa siguiente paso de la cadencia"},
+    {"name": "pause_cadence", "description": "Detiene la cadencia (lead lo pidió o cerró)"},
+    {"name": "escalate_to_human", "description": "Crea ticket para que un humano siga"},
+    {"name": "tag_objection", "description": "Etiqueta la objeción detectada para analytics"}
+]
+```
+
+#### Pasos para construirlo
+
+**Fase A — Foundations (semana 1)**
+1. Crear schema (`leads`, `lead_events`, `cadence_jobs`).
+2. Endpoint `POST /webhooks/whatsapp` que crea/actualiza lead.
+3. Worker que lee `cadence_jobs` y ejecuta el paso (Temporal, BullMQ o cron simple para MVP).
+
+**Fase B — Conversational core (semana 2)**
+4. Implementar `get_product_info`, `check_shipping`, `create_checkout_link` (mock al inicio, luego Shopify real).
+5. Endpoint `POST /agents/sales-closer` con system prompt + tools.
+6. Loop de tool-calls hasta respuesta final.
+7. Loguear todo en `lead_events` y `messages`.
+
+**Fase C — Cadencia y descuentos (semana 3)**
+8. Implementar máquina de estados de cadencia.
+9. Implementar `issue_discount_code` con guardrails de `discount_policy`.
+10. Email templates (Resend) para EMAIL_1 y EMAIL_FINAL.
+11. Quiet hours + STOP keyword + opt-out compliance.
+
+**Fase D — Optimización (continuo)**
+12. A/B testing por marca: copy de mensajes, momento del descuento, % ofrecido.
+13. Dashboard: leads por etapa, conversión por paso, ROI del descuento.
+
+#### Métricas (lo que mide el éxito)
+
+- **Lead → WON %** (target: > 18% en 7 días).
+- **Tiempo de respuesta primer toque** (target: < 30s p95).
+- **Conversión por paso** (qué paso convierte más).
+- **Lift de descuento** (cuánto sube la conversión post-descuento — ¿vale la pena?).
+- **Margen efectivo** (revenue post-descuento − costo del agente).
+- **Tasa de escalación a humano** (debe bajar con el tiempo).
+
+#### Criterios de aceptación
+
+- [ ] Responde lead inbound en < 30s p95.
+- [ ] Cumple cadencia y quiet hours respetando timezone de la lead.
+- [ ] **Nunca** ofrece descuento > tope ni antes del trigger.
+- [ ] STOP / "no me escriban" detiene cadencia inmediatamente.
+- [ ] Genera checkout link válido de Shopify.
+- [ ] Conversión Lead→WON ≥ 15% en piloto Fuxia.
+- [ ] Lift medible vs control sin agente (ej. comparar con leads del mes anterior).
+- [ ] Logs completos para auditar cada toque.
+- [ ] Feature flag por marca + por canal (WA / email).
+
+#### Riesgos y mitigaciones
+
+| Riesgo | Mitigación |
+|---|---|
+| Suena a spam o presión excesiva | Cap de 5 toques, quiet hours, copy revisado por marca, opt-out fácil |
+| Descuento agresivo erosiona margen | Hard cap por marca + dashboard de margen efectivo + alerta si conversión solo viene con descuento |
+| Lead reportada como spam (Twilio sanctions) | Solo enviar a leads que iniciaron contacto, opt-in claro, monitoring de quality score |
+| Confusión entre Agente 1 y 6 | Clasificador de intención al frente del Orquestador, tests con 50 mensajes etiquetados |
+| Cumplimiento legal (LFPDPPP, GDPR, anti-spam) | Consentimiento documentado, derecho al olvido, registro de opt-outs |
 
 ---
 
@@ -878,14 +1135,14 @@ Si inventario < 20% y velocidad alta:
 - ✅ **Agente 2** (Stylist) en widget web.
 - ✅ **Agente 4** versión cuestionario.
 - ✅ **Agente 3** (Content) en dashboard interno.
-- ✅ **Agente 5** Fase A+B (body classifier + try-on básico vía Replicate). **Killer feature: prioridad alta.**
+- ✅ **Agente 5** Fase A+B (body classifier + try-on básico vía Replicate). **Killer feature de producto.**
+- ✅ **Agente 6** Fases A+B (Sales Closer conversacional sin cadencia aún). **Killer feature de revenue: prioridad alta.**
 - ✅ Onboarding de segunda marca piloto.
 
 ### Fase 3 — Escala (mes 5+)
 - ✅ **Agente 5** Fase C+D (cross-sell con razonamiento + UI completa) y hardening de privacidad.
-- ✅ **Agente 6** (Dynamic Pricing) con reglas.
+- ✅ **Agente 6** Fases C+D (cadencia multi-canal completa + descuentos automáticos + A/B testing).
 - ✅ **Agente 4** con Computer Vision (re-uso del pipeline del Agente 5).
-- ✅ **Agente 6** con Reinforcement Learning.
 
 ---
 
