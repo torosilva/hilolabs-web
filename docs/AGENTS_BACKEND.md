@@ -31,7 +31,7 @@ Vendemos **7 agentes de IA** integrados a una plataforma de moda. No son chatbot
 | 2 | AI Stylist | Recomienda outfits | Cliente final |
 | 3 | Content Generation | Genera textos e imágenes de producto | Equipo de la marca |
 | 4 | Sizing & Fit | Sugiere talla correcta | Cliente final |
-| 5 | Influencer Outreach | Busca y contacta influencers | Equipo de la marca |
+| 5 | Virtual Try-On & Body-Aware Stylist | Probador virtual con foto real + cross-sell según tipo de cuerpo | Cliente final |
 | 6 | Dynamic Pricing | Ajusta precios | Sistema (con guardrails) |
 | 7 | Executive Dashboard | Responde preguntas sobre métricas | Founder de la marca |
 
@@ -552,24 +552,251 @@ tools = [
 
 ---
 
-### 🔴 Agente 5 — Influencer Outreach
+### 🔴 Agente 5 — Virtual Try-On & Body-Aware Stylist
 
 #### Promesa pública
-> "Identifica, vetting y outreach a micro-influencers automáticamente."
+> "La clienta sube una foto y ve cómo le queda cada prenda en su cuerpo real. El agente analiza silueta y tipo de cuerpo para sugerir las piezas que mejor le favorecen y hacer cross-sell con productos complementarios de la marca."
+
+#### Por qué importa (el "killer feature" de HiloLabs)
+
+Las marcas latinas venden a cuerpos **reales y diversos**. Las modelos de catálogo no representan a la mayoría de las clientas, y el principal motivo de devolución es *"no me queda como pensé"*. Este agente:
+
+1. **Reduce devoluciones**: la clienta ve la prenda en SU cuerpo antes de comprar.
+2. **Sube AOV**: cross-sell de outfits completos basados en su silueta.
+3. **Genera contenido**: cada try-on es opcionalmente compartible (UGC con consentimiento).
+4. **Es multi-marca**: misma infra sirve a Fuxia, a la siguiente marca, a la siguiente.
+
+#### Diferencia con Agente 2 y Agente 4
+
+| Agente | Pregunta que responde | Input principal |
+|---|---|---|
+| **2 — Stylist** | "¿Qué outfits combinan según mis compras pasadas?" | Histórico de compras |
+| **4 — Sizing & Fit** | "¿Qué talla me queda?" | Medidas / cuestionario / foto |
+| **5 — Try-On & Body Stylist** | "¿Cómo me veo con esto puesto y qué más me favorece?" | **Foto del cuerpo + catálogo visual** |
+
+Los tres comparten infraestructura (Customer Memory, embeddings de producto), pero responden necesidades distintas. Pueden usarse combinados (ej.: 5 sugiere prenda → 4 confirma talla → 2 arma el outfit completo).
 
 #### Stack
-- Instagram Graph API.
-- LangChain + Claude.
 
-#### Pipeline
-1. **Discovery:** búsqueda por hashtag, geo, "cuentas similares".
-2. **Vetting:** detectar engagement falso (heurísticas: ratio likes/seguidores, comentarios genéricos).
-3. **Scoring:** fit con la marca (estética + tono) usando LLM con ejemplos.
-4. **Outreach:** Claude redacta DM personalizado → operador aprueba → envío.
+| Componente | Tecnología | Por qué |
+|---|---|---|
+| Body segmentation & pose | **MediaPipe** o **SAM 2** + **OpenPose** | Detectar silueta, postura, puntos clave del cuerpo |
+| Body type classifier | Modelo propio (PyTorch) entrenado sobre proporciones | Clasificar en tipos: reloj de arena, triángulo, rectángulo, óvalo, triángulo invertido |
+| Virtual Try-On | **IDM-VTON** o **OOTDiffusion** (open source) vía Replicate | Generar imagen de la clienta usando la prenda |
+| Razonamiento de styling | **Gemini 1.5 Pro Vision** (multimodal) | "Mira" la imagen de la clienta + catálogo y razona qué le favorece |
+| Cross-sell ranking | Vector search (pgvector) sobre embeddings de producto | Productos complementarios (zapatos, accesorios, capa exterior) |
 
-#### Compliance
-- Respetar TOS de Instagram (no scraping agresivo, usar API oficial).
-- Rate limiting estricto.
+> **Decisión clave a validar con producto:** ¿hosting propio de IDM-VTON (más caro pero control total) o vía Replicate (más rápido para MVP)? **Recomendación: Replicate para MVP, migrar a self-hosted en escala.**
+
+#### Cómo funciona — flujo completo
+
+```
+1. La clienta abre PDP de un vestido
+   ↓
+2. Tap en "Pruébatelo virtualmente"
+   ↓
+3. Permiso explícito + sube foto (cuerpo completo, fondo neutro)
+   ↓
+4. Pipeline de visión:
+   - Segmentación corporal (separar persona del fondo)
+   - Pose estimation (puntos clave: hombros, cintura, cadera, etc.)
+   - Cálculo de proporciones (ratio hombros:cintura:cadera)
+   - Clasificación de tipo de cuerpo
+   ↓
+5. Virtual Try-On (IDM-VTON):
+   - Input: foto persona + foto producto (flat lay o modelo)
+   - Output: imagen de la clienta usando la prenda
+   ↓
+6. Body-aware reasoning (Gemini Vision):
+   - Input: foto clienta + tipo de cuerpo + prenda probada + catálogo de la marca
+   - Output: "Esta blusa te favorece porque marca cintura. Para tu silueta también recomiendo
+             estos pantalones de tiro alto y este blazer estructurado."
+   ↓
+7. Cross-sell:
+   - Vector search top-20 productos complementarios al outfit base
+   - Filtros: stock, talla disponible (cruzar con Agente 4), presupuesto opcional
+   - Re-rank con Gemini explicando "por qué te queda bien"
+   ↓
+8. UI muestra:
+   - Imagen del try-on (compartible con consentimiento)
+   - 3-5 productos sugeridos con razón
+   - Botón "Probarme también esto" (re-corre el try-on con cada uno)
+   - Botón "Agregar outfit completo al carrito"
+```
+
+#### Inputs / Outputs
+
+```json
+// POST /agents/try-on
+{
+  "brand_id": "uuid",
+  "customer_id": "uuid",
+  "base_product_sku": "FX-VST-091",
+  "photo_id": "uuid_de_foto_subida",  // referencia a foto efímera
+  "consent_share": false
+}
+
+// Response
+{
+  "try_on_image_url": "https://cdn.../tryons/abc123.jpg",
+  "body_analysis": {
+    "body_type": "hourglass",
+    "proportions": {"shoulder_waist": 1.35, "waist_hip": 0.72},
+    "confidence": 0.87
+  },
+  "fit_assessment": {
+    "summary": "Esta prenda marca tu cintura y favorece tu silueta de reloj de arena.",
+    "score": 9
+  },
+  "cross_sell": [
+    {
+      "sku": "FX-PNT-022",
+      "name": "Pantalón tiro alto crema",
+      "reason": "Equilibra el largo del vestido y alarga la pierna.",
+      "image_url": "...",
+      "price": 1290,
+      "size_recommended": "M"
+    }
+  ],
+  "complete_outfit_cta": {
+    "skus": ["FX-VST-091", "FX-PNT-022", "FX-ACC-101"],
+    "total": 3580,
+    "discount_if_bundle": 358
+  }
+}
+```
+
+#### Privacidad — NO NEGOCIABLE 🔒
+
+Las fotos del cuerpo de la clienta son data **extremadamente sensible**. Reglas:
+
+1. **Consentimiento explícito** antes de subir foto (checkbox + texto claro, no pre-marcado).
+2. **Almacenamiento efímero**: foto original se borra a las **24 horas** máximo.
+3. **Lo que sí se persiste** (por meses, anonimizado):
+   - Tipo de cuerpo clasificado (categoría, no foto).
+   - Proporciones numéricas.
+   - Try-on generado SOLO si la clienta dio consentimiento explícito de guardar.
+4. **Nunca compartir** entre marcas. Multi-tenant estricto.
+5. **Nunca usar para entrenar modelos** sin consentimiento adicional opt-in.
+6. **Cumplimiento**: GDPR, LFPDPPP (México), CCPA. Right to deletion implementado.
+7. **Watermark invisible** en try-ons generados para detectar usos indebidos.
+8. **Nunca generar try-ons de menores**. Detector de edad + bloqueo si < 18.
+
+> Antes de lanzar, **revisión legal obligatoria**.
+
+#### Schema adicional
+
+```sql
+-- Fotos efímeras (TTL 24h, job de limpieza)
+CREATE TABLE photo_uploads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  brand_id UUID NOT NULL,
+  customer_id UUID NOT NULL,
+  storage_url TEXT NOT NULL,           -- S3/GCS, signed URL
+  consent_given_at TIMESTAMPTZ NOT NULL,
+  consent_share BOOLEAN DEFAULT FALSE,
+  expires_at TIMESTAMPTZ NOT NULL DEFAULT (now() + interval '24 hours'),
+  deleted_at TIMESTAMPTZ
+);
+
+-- Análisis de cuerpo (anonimizado, persistente)
+CREATE TABLE body_profiles (
+  customer_id UUID PRIMARY KEY REFERENCES customers(id),
+  body_type TEXT,                       -- 'hourglass' | 'pear' | etc
+  proportions JSONB,
+  measurements_estimated JSONB,
+  confidence NUMERIC(3,2),
+  last_updated TIMESTAMPTZ DEFAULT now()
+);
+
+-- Try-ons generados
+CREATE TABLE try_ons (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  brand_id UUID NOT NULL,
+  customer_id UUID NOT NULL,
+  product_sku TEXT NOT NULL,
+  result_url TEXT,                      -- null si la clienta no dio consentimiento de guardar
+  fit_score INT,
+  led_to_purchase BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+#### Pasos para construirlo
+
+**Fase A — Body classifier (semanas 1-2)**
+1. Recolectar dataset etiquetado (open source: DeepFashion, propio con consentimiento).
+2. Entrenar (o fine-tune) modelo de clasificación de tipo de cuerpo.
+3. Endpoint `POST /vision/body-analyze` que recibe foto y devuelve tipo + proporciones.
+
+**Fase B — Try-On vía Replicate (semanas 3-4)**
+4. Integrar IDM-VTON vía API de Replicate.
+5. Endpoint `POST /vision/try-on` que recibe (foto persona, foto producto) → devuelve imagen.
+6. Cache de resultados por `(customer_id, sku)` para no re-generar.
+
+**Fase C — Cross-sell con razonamiento (semanas 5-6)**
+7. Embeddings multimodales del catálogo (re-uso de Agente 2).
+8. Prompt a Gemini Vision con: foto try-on + tipo cuerpo + top-20 candidatos del catálogo.
+9. Devolver 3-5 con razón en lenguaje natural.
+
+**Fase D — UI + integración (semanas 7-8)**
+10. Componente React en este repo: subir foto, mostrar try-on, carrusel de cross-sell.
+11. Integrar con Agente 4 (talla) y Agente 1 (preguntas durante el try-on).
+12. Tracking de conversión: try-on → add to cart → purchase.
+
+**Fase E — Hardening (continuo)**
+13. Job de limpieza de fotos > 24h.
+14. Auditoría de seguridad y privacidad.
+15. Watermarking, detección de menores.
+
+#### System prompt (cross-sell con Gemini Vision)
+
+```
+Eres estilista personal experta en {{brand.name}}.
+
+Estás viendo una foto de una clienta probándose una prenda virtualmente.
+
+DATOS:
+- Tipo de cuerpo: {{body_type}}
+- Proporciones: {{proportions}}
+- Prenda actual: {{current_product}}
+- Tier loyalty: {{customer_profile.loyalty_tier}}
+- Voz de marca: {{brand.config.voice}}
+
+CATÁLOGO DISPONIBLE (top-20 candidatos relevantes):
+{{candidate_products_with_images}}
+
+TU TAREA:
+1. Mira la imagen del try-on y evalúa cómo le queda en escala 1-10.
+2. Selecciona 3-5 productos del catálogo que armen un OUTFIT completo y favorezcan su silueta.
+3. Para cada uno, da UNA razón corta (máx 15 palabras), específica al tipo de cuerpo.
+4. Habla en segunda persona ("te queda", "alarga tu pierna").
+5. Nunca uses palabras prohibidas: {{brand.config.voice.forbidden_words}}.
+6. Nunca menciones tallas (eso lo maneja otro agente).
+
+Devuelve JSON estructurado.
+```
+
+#### Criterios de aceptación
+
+- [ ] Try-on generado en < 8s p95 (puede ser asíncrono con loader).
+- [ ] Conversión try-on → add-to-cart > 25% en piloto.
+- [ ] Reducción de devoluciones por "no me quedó" > 25% vs baseline.
+- [ ] AOV de sesiones con try-on > 1.4× vs sesiones sin try-on.
+- [ ] 0 fotos almacenadas más de 24h (auditable con cron + alerta).
+- [ ] Consentimiento explícito documentado por cada upload.
+- [ ] Probado en ≥ 4 tipos de cuerpo distintos con ≥ 3 marcas distintas.
+- [ ] Funciona en móvil (cámara nativa) y web.
+
+#### Riesgos y mitigaciones
+
+| Riesgo | Mitigación |
+|---|---|
+| IDM-VTON da resultados raros (manos extra, distorsión) | Quality gate: scoring automático + fallback a "no disponible" si baja del umbral |
+| Costo por try-on alto en Replicate | Caching agresivo + presupuesto por marca + posible self-hosting en escala |
+| Sesgo del modelo en cuerpos no-occidentales | Validar con dataset diverso, métricas por tipo de cuerpo, opt-in para reportar problemas |
+| Mal uso (clientas suben fotos de terceros) | Términos de uso claros + watermark + detector de edad |
+| Latencia mata la experiencia | Procesamiento asíncrono + push notification cuando esté listo |
 
 ---
 
@@ -651,12 +878,13 @@ Si inventario < 20% y velocidad alta:
 - ✅ **Agente 2** (Stylist) en widget web.
 - ✅ **Agente 4** versión cuestionario.
 - ✅ **Agente 3** (Content) en dashboard interno.
+- ✅ **Agente 5** Fase A+B (body classifier + try-on básico vía Replicate). **Killer feature: prioridad alta.**
 - ✅ Onboarding de segunda marca piloto.
 
 ### Fase 3 — Escala (mes 5+)
-- ✅ **Agente 5** (Influencer Outreach).
+- ✅ **Agente 5** Fase C+D (cross-sell con razonamiento + UI completa) y hardening de privacidad.
 - ✅ **Agente 6** (Dynamic Pricing) con reglas.
-- ✅ **Agente 4** con Computer Vision.
+- ✅ **Agente 4** con Computer Vision (re-uso del pipeline del Agente 5).
 - ✅ **Agente 6** con Reinforcement Learning.
 
 ---
