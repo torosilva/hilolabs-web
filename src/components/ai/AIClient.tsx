@@ -46,21 +46,71 @@ export default function AIClient() {
                 {/* Agent Visual */}
                 <div className="w-full md:w-1/2 h-[400px] bg-[#130E1B] rounded-3xl border border-white/5 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-[var(--color-fuchsia)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  
-                  {/* Abstract Agent UI based on index */}
-                  <div className="absolute inset-8 border border-white/10 rounded-2xl p-6 flex flex-col justify-between backdrop-blur-sm bg-white/[0.01]">
-                     <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                       <div className="w-3 h-3 rounded-full bg-[var(--color-fuchsia)] animate-pulse" />
-                       <span className="font-mono text-xs text-[var(--color-gray)]">{t(`agent_${agent}_stack` as any).split('+')[0]}</span>
-                     </div>
-                     <div className="flex-1 mt-6 flex flex-col gap-4">
-                        <div className="w-3/4 h-8 bg-white/5 rounded-md" />
-                        <div className="w-1/2 h-8 bg-white/5 rounded-md" />
-                        {i === 0 || i === 1 ? (
-                           <div className="w-full h-8 bg-[var(--color-fuchsia)]/20 rounded-md self-end mt-auto" />
-                        ) : null}
-                     </div>
-                  </div>
+
+                  {agent === 5 ? (
+                    // Virtual Try-On visual: silhouette + scan + cross-sell
+                    <div className="absolute inset-8 border border-white/10 rounded-2xl p-6 flex flex-col backdrop-blur-sm bg-white/[0.01]">
+                      <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-[var(--color-fuchsia)] animate-pulse" />
+                          <span className="font-mono text-[10px] text-[var(--color-gray)] uppercase tracking-widest">Body Scan</span>
+                        </div>
+                        <span className="font-mono text-[10px] text-[var(--color-fuchsia)]">98% match</span>
+                      </div>
+
+                      <div className="flex-1 flex gap-4 mt-4 min-h-0">
+                        {/* Silhouette + scan line */}
+                        <div className="relative w-1/3 border border-white/10 rounded-lg overflow-hidden bg-black/20">
+                          <svg viewBox="0 0 60 140" className="w-full h-full" fill="none" stroke="currentColor" strokeWidth="1" preserveAspectRatio="xMidYMid meet">
+                            <g className="text-[var(--color-fuchsia)]/60">
+                              <circle cx="30" cy="18" r="9" />
+                              <path d="M18 30 Q30 26 42 30 L46 60 Q40 68 40 78 L42 110 L36 130 L34 130 L32 110 L30 90 L28 110 L26 130 L24 130 L18 110 L20 78 Q20 68 14 60 Z" />
+                            </g>
+                          </svg>
+                          <motion.div
+                            initial={{ y: -10 }}
+                            animate={{ y: 200 }}
+                            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                            className="absolute left-0 right-0 h-px bg-[var(--color-fuchsia)] shadow-[0_0_8px_var(--color-fuchsia)]"
+                          />
+                          <div className="absolute bottom-1 left-1 right-1 font-mono text-[8px] text-[var(--color-gray)] flex justify-between">
+                            <span>HRGLS</span>
+                            <span>1.35</span>
+                          </div>
+                        </div>
+
+                        {/* Try-on + cross-sell items */}
+                        <div className="flex-1 flex flex-col gap-2">
+                          <div className="flex-1 bg-[var(--color-fuchsia)]/15 border border-[var(--color-fuchsia)]/30 rounded-md flex items-end p-2">
+                            <span className="font-mono text-[9px] text-[var(--color-cream)]">try-on.jpg</span>
+                          </div>
+                          <div className="grid grid-cols-3 gap-1.5">
+                            {[1, 2, 3].map((n) => (
+                              <div key={n} className="aspect-square bg-white/5 border border-white/10 rounded-sm" />
+                            ))}
+                          </div>
+                          <div className="font-mono text-[9px] text-[var(--color-gray)] leading-tight">
+                            +3 piezas que te favorecen →
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    // Default abstract agent UI
+                    <div className="absolute inset-8 border border-white/10 rounded-2xl p-6 flex flex-col justify-between backdrop-blur-sm bg-white/[0.01]">
+                       <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                         <div className="w-3 h-3 rounded-full bg-[var(--color-fuchsia)] animate-pulse" />
+                         <span className="font-mono text-xs text-[var(--color-gray)]">{t(`agent_${agent}_stack` as any).split('+')[0]}</span>
+                       </div>
+                       <div className="flex-1 mt-6 flex flex-col gap-4">
+                          <div className="w-3/4 h-8 bg-white/5 rounded-md" />
+                          <div className="w-1/2 h-8 bg-white/5 rounded-md" />
+                          {i === 0 || i === 1 ? (
+                             <div className="w-full h-8 bg-[var(--color-fuchsia)]/20 rounded-md self-end mt-auto" />
+                          ) : null}
+                       </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Agent Content */}
