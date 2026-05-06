@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HiloLabs.ai — Web
 
-## Getting Started
+Sitio web institucional y de producto de **HiloLabs**, la plataforma de loyalty, ecommerce y AI para marcas de moda lideradas por mujeres latinas.
 
-First, run the development server:
+> Página viva del producto: Hilo Loyalty, Commerce, AI Stack, Case Studies (Fuxia), Pricing y Book a Demo.
+
+---
+
+## Stack
+
+- **Framework:** Next.js 16.2 (App Router)
+- **React:** 19.2
+- **Estilos:** Tailwind CSS 4
+- **i18n:** next-intl (Español / Inglés)
+- **Animaciones:** framer-motion
+- **Forms:** react-hook-form
+- **TypeScript:** 5.x
+
+> ⚠️ Esta versión de Next.js trae **breaking changes**. Antes de tocar APIs internas, revisa `node_modules/next/dist/docs/`. Lee `AGENTS.md`.
+
+---
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # servidor de desarrollo (http://localhost:3000)
+npm run build    # build de producción
+npm run start    # servir build
+npm run lint     # eslint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estructura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   └── [locale]/              # rutas internacionalizadas (es, en)
+│       ├── page.tsx           # Home
+│       ├── layout.tsx
+│       ├── loyalty/           # Hilo Loyalty
+│       ├── commerce/          # Hilo Commerce
+│       ├── ai/                # AI Stack (7 agentes)
+│       ├── case-studies/      # Fuxia y otros casos
+│       ├── about/
+│       ├── pricing/
+│       └── book-demo/
+├── components/
+│   ├── home/  loyalty/  commerce/  ai/  case-studies/
+│   ├── about/  pricing/
+│   └── shared/                # Navbar, Footer, etc.
+├── i18n/
+│   ├── routing.ts             # locales soportados
+│   └── request.ts             # carga de mensajes
+└── proxy.ts                   # middleware i18n
 
-## Learn More
+messages/
+├── en.json                    # copy en inglés
+└── es.json                    # copy en español
 
-To learn more about Next.js, take a look at the following resources:
+public/                        # logos, hero mockup, fuxia editorial
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Internacionalización
 
-## Deploy on Vercel
+Toda la copy vive en `messages/en.json` y `messages/es.json`. Para añadir/cambiar texto:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Edita la clave en **ambos** archivos.
+2. Úsala con `useTranslations("Namespace")` en el componente.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Las rutas se generan bajo `/[locale]` (ej. `/es/ai`, `/en/ai`).
+
+---
+
+## Tokens de marca
+
+Definidos como CSS vars en `src/app/[locale]/globals.css`:
+
+- `--color-fuchsia` — color de acento principal
+- `--color-cream` — texto sobre fondos oscuros
+- `--color-gray` — texto secundario
+- `--color-base` — fondo
+
+Usar siempre estos tokens; **no hardcodear** colores en componentes.
+
+---
+
+## Convenciones
+
+- Componentes interactivos → `"use client"`. Resto, server components por defecto.
+- Animaciones con `framer-motion` (patrón `fadeInUp` en `AIClient.tsx`).
+- Links internos → `Link` de `@/i18n/routing` (NO `next/link` directo, para preservar locale).
+- Imágenes en `public/`, referenciadas con ruta absoluta `/archivo.png`.
+
+---
+
+## Deploy
+
+Pensado para **Vercel**. Push a `main` → preview/prod automático.
+
+---
+
+## Documentación interna
+
+- `AGENTS.md` — instrucciones para agentes de IA que trabajan en el repo.
+- `docs/AGENTS_BACKEND.md` — especificación de los 7 agentes de IA del producto (para el equipo de desarrollo backend).
