@@ -105,5 +105,6 @@ Pensado para **Vercel**. Push a `main` → preview/prod automático.
 
 ## Documentación interna
 
-- `AGENTS.md` — instrucciones para agentes de IA que trabajan en el repo.
-- `docs/AGENTS_BACKEND.md` — especificación de los 7 agentes de IA del producto (para el equipo de desarrollo backend).
+- `AGENTS.md` — instrucciones para agentes de IA que trabajan en este repo.
+- **`docs/ONBOARDING.md`** — guía cero-a-productivo para nuevo desarrollador(a). **Leer primero.**
+- **`docs/AGENTS_BACKEND.md`** — especificación detallada de los 7 agentes de IA del producto (arquitectura, schema SQL, prompts, tools, roadmap, glosario).
