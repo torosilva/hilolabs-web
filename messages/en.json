@@ -88,6 +88,17 @@
     "tech_stack_title": "The Tech Stack",
     "cta_final": "Want this stack in your brand? → Book a demo"
   },
+  "CaseStudiesIndex": {
+    "hero_eyebrow": "Case Studies",
+    "hero_h1": "Stories from brands woven with Hilo.",
+    "hero_sub": "How Latina-led fashion brands use Hilo Loyalty, Commerce, and AI Agents to grow without burning out.",
+    "read_case_study": "Read the case study →",
+    "more_eyebrow": "Coming soon",
+    "more_title": "More stories on the loom.",
+    "more_sub": "We're shipping with new brands every month. Want to be the next case study?",
+    "cta_final": "Ready to write your own?",
+    "cta_final_button": "Book a demo"
+  },
   "CaseStudy": {
     "hero_eyebrow": "Case Study: Fuxia Ballerinas",
     "hero_h1": "From local boutique to an AI-first empire.",

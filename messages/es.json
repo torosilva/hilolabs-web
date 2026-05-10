@@ -88,6 +88,17 @@
     "tech_stack_title": "El Stack Técnico",
     "cta_final": "¿Quieres este stack en tu marca? → Agendar demo"
   },
+  "CaseStudiesIndex": {
+    "hero_eyebrow": "Casos de Éxito",
+    "hero_h1": "Historias de marcas tejidas con Hilo.",
+    "hero_sub": "Cómo las marcas de moda lideradas por latinas usan Hilo Loyalty, Commerce y Agentes de IA para crecer sin quemarse.",
+    "read_case_study": "Leer el caso →",
+    "more_eyebrow": "Próximamente",
+    "more_title": "Más historias en el telar.",
+    "more_sub": "Lanzamos con nuevas marcas cada mes. ¿Quieres ser el próximo caso de éxito?",
+    "cta_final": "¿Lista para escribir el tuyo?",
+    "cta_final_button": "Agenda un demo"
+  },
   "CaseStudy": {
     "hero_eyebrow": "Caso de Éxito: Fuxia Ballerinas",
     "hero_h1": "De boutique local a un imperio AI-first.",
