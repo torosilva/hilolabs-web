@@ -108,3 +108,4 @@ Pensado para **Vercel**. Push a `main` → preview/prod automático.
 - `AGENTS.md` — instrucciones para agentes de IA que trabajan en este repo.
 - **`docs/ONBOARDING.md`** — guía cero-a-productivo para nuevo desarrollador(a). **Leer primero.**
 - **`docs/AGENTS_BACKEND.md`** — especificación detallada de los 7 agentes de IA del producto (arquitectura, schema SQL, prompts, tools, roadmap, glosario).
+- **`docs/SELF_SERVE_PROVISIONING.md`** — cómo HiloLabs es SaaS de verdad: signup → pago → conexión a WooCommerce y WhatsApp → agentes en vivo, todo sin intervención humana.
