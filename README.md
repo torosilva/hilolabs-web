@@ -109,3 +109,4 @@ Pensado para **Vercel**. Push a `main` → preview/prod automático.
 - **`docs/ONBOARDING.md`** — guía cero-a-productivo para nuevo desarrollador(a). **Leer primero.**
 - **`docs/AGENTS_BACKEND.md`** — especificación detallada de los 7 agentes de IA del producto (arquitectura, schema SQL, prompts, tools, roadmap, glosario).
 - **`docs/SELF_SERVE_PROVISIONING.md`** — cómo HiloLabs es SaaS de verdad: signup → pago → conexión a WooCommerce y WhatsApp → agentes en vivo, todo sin intervención humana.
+- **`docs/PREREQUISITES_AND_READINESS.md`** — qué pasa cuando la marca **no tiene** WooCommerce, WhatsApp Business, pasarela o catálogo. Tracks A/B/C, Readiness Check pre-pago, sub-flujos para resolver cada faltante de forma automatizada.
