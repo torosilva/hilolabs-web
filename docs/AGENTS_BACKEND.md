@@ -69,7 +69,7 @@ El copy comercial vive en `messages/en.json` y `messages/es.json` bajo el namesp
            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                   FUENTES DE DATOS                          │
-│  Shopify  │  POS  │  WhatsApp logs  │  Notion  │  CSVs      │
+│  WooCommerce (REST API)  │  POS  │  WhatsApp logs  │  Notion  │  CSVs │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -121,7 +121,7 @@ CREATE TABLE brands (
 CREATE TABLE customers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   brand_id UUID NOT NULL REFERENCES brands(id),
-  external_id TEXT,                  -- id en Shopify
+  external_id TEXT,                  -- id en WooCommerce (wp_users / wc_customer_lookup)
   phone TEXT,
   email TEXT,
   name TEXT,
@@ -144,7 +144,7 @@ CREATE TABLE customer_profiles (
 CREATE TABLE documents (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   brand_id UUID NOT NULL REFERENCES brands(id),
-  source TEXT NOT NULL,              -- 'shopify' | 'notion' | 'manual'
+  source TEXT NOT NULL,              -- 'woocommerce' | 'notion' | 'manual'
   type TEXT NOT NULL,                -- 'product' | 'policy' | 'faq'
   title TEXT,
   content TEXT NOT NULL,
@@ -205,11 +205,11 @@ CREATE TABLE llm_calls (
 **Pipeline de ingesta:**
 
 ```
-Shopify/Notion/CSV  →  parser  →  chunks (~500 tokens)  →  embedding  →  pgvector
+WooCommerce/Notion/CSV  →  parser  →  chunks (~500 tokens)  →  embedding  →  pgvector
 ```
 
 **Cuándo se reindexa:**
-- Webhook `product.update` de Shopify → reindexa ese producto.
+- Webhook `product.updated` de WooCommerce (REST API webhooks) → reindexa ese producto.
 - Cron diario a las 3am → revisa cambios y reindexa.
 
 **Ejemplo de búsqueda (Python):**
@@ -295,7 +295,83 @@ Cuando crezca, migra a **LangGraph** para tener estados y handoffs entre agentes
 #### Email
 - Resend o SendGrid con webhook de inbound parsing.
 
-### 4.6 Observabilidad
+### 4.6 Integración con WooCommerce (la tienda real de cada marca)
+
+**Cada marca usa WooCommerce** (WordPress + plugin WooCommerce). Toda integración con la tienda pasa por:
+
+#### REST API
+- Base URL: `https://{tienda}/wp-json/wc/v3/`
+- Auth: API keys generadas en *WooCommerce → Ajustes → Avanzado → REST API* (consumer key + consumer secret).
+- En producción: HTTPS obligatorio + IP allowlist en el WAF.
+
+#### Endpoints clave que vamos a usar
+| Necesidad | Endpoint |
+|---|---|
+| Listar/leer productos | `GET /products`, `GET /products/{id}` |
+| Stock por variación | `GET /products/{id}/variations` |
+| Crear orden (Sales Closer) | `POST /orders` con `status: "pending"` y `set_paid: false` |
+| Generar coupon (descuento) | `POST /coupons` |
+| Leer cliente | `GET /customers/{id}` |
+| Listar órdenes de un cliente | `GET /orders?customer={id}` |
+
+#### Webhooks (eventos de WooCommerce hacia nuestro backend)
+Configurar en *WooCommerce → Ajustes → Avanzado → Webhooks*:
+- `product.updated` → reindexar Knowledge Base.
+- `order.created` → actualizar Customer Memory + cerrar lead si vino de Sales Closer.
+- `order.updated` → actualizar estado de pedido para Customer Service.
+- `customer.created` → crear `customer` en nuestra DB.
+
+Validar firma `X-WC-Webhook-Signature` en cada webhook recibido.
+
+#### Generar checkout link (para el Sales Closer)
+Dos opciones:
+
+1. **Carrito pre-cargado (rápido, MVP):**
+   ```
+   https://{tienda}/?add-to-cart={product_id}&quantity=1&coupon_code=LUCIA15
+   ```
+   Redirige al checkout con el producto y cupón aplicados.
+
+2. **Orden pendiente (más control):**
+   ```
+   POST /wp-json/wc/v3/orders
+   {
+     "status": "pending",
+     "customer_id": 123,
+     "line_items": [{"product_id": 456, "quantity": 1}],
+     "coupon_lines": [{"code": "LUCIA15"}]
+   }
+   ```
+   Devuelve `order.payment_url` que se manda a la clienta.
+
+#### Coupons (descuentos del Sales Closer)
+```
+POST /wp-json/wc/v3/coupons
+{
+  "code": "LUCIA15",
+  "discount_type": "percent",
+  "amount": "10",
+  "individual_use": true,
+  "usage_limit": 1,
+  "usage_limit_per_user": 1,
+  "date_expires": "2026-05-08T23:59:59",
+  "email_restrictions": ["lucia@example.com"],
+  "minimum_amount": "800.00",
+  "excluded_product_ids": [/* SKUs FX-LIMITED-* mapeados */]
+}
+```
+
+#### Cosas a vigilar (WooCommerce-specific)
+- **Performance**: WooCommerce vive sobre WordPress + MySQL. Recomendar a la marca tener cache (Redis Object Cache + LiteSpeed/Cloudflare) y al menos 2GB RAM.
+- **Variaciones**: tallas y colores son `product_variations`, no productos. Cuidado al ingestar.
+- **Stock**: puede estar a nivel producto o variación. Usar `manage_stock` y `stock_quantity`.
+- **Multi-currency / multi-idioma**: si la marca usa WPML o Polylang, los IDs de producto se duplican por idioma. Mapear con cuidado.
+- **Pagos**: el link de pago depende del gateway configurado (Stripe, MercadoPago, OpenPay). Probar end-to-end con cada uno.
+- **Rate limits**: WooCommerce REST no tiene límite oficial pero el hosting sí. Respetar < 5 req/s y usar bulk endpoints.
+
+> Para el MVP usamos el sitio de Fuxia tal cual. Si la marca no tiene WooCommerce aún, ofrecemos setup como parte del onboarding.
+
+### 4.7 Observabilidad
 
 - Logs estructurados (JSON) → enviar a [Better Stack](https://betterstack.com/) o [Axiom](https://axiom.co/).
 - Métricas de LLM → tabla `llm_calls` + dashboard ([Langfuse](https://langfuse.com/) self-hosted o cloud).
@@ -517,7 +593,7 @@ tools = [
 1. Catálogo de prompt templates por `format`.
 2. Endpoint `POST /agents/content` que devuelve N variaciones.
 3. UI de aprobación: el equipo de la marca aprueba/edita antes de publicar.
-4. Cuando se aprueba, push a Shopify (PDP) o exporta CSV (ads).
+4. Cuando se aprueba, push a WooCommerce vía REST API (`PUT /wp-json/wc/v3/products/{id}`) o exporta CSV (ads).
 
 #### Criterios de aceptación
 - [ ] Cada draft pasa el filtro de `forbidden_words` de la marca.
@@ -833,7 +909,7 @@ El **Orquestador** decide: si el mensaje pinta intención de compra (preguntó p
 | Canal Email | **Resend** (o SendGrid) |
 | Máquina de estados de cadencia | **Temporal** (recomendado) o BullMQ + Redis |
 | CRM mínimo de leads | tabla `leads` en Postgres (descrita abajo) |
-| Generación de checkout | API de Shopify (draft orders + discount codes) |
+| Generación de checkout | **WooCommerce REST API** (orders + coupons) o link de carrito pre-cargado |
 | Tracking de eventos | Segment / propio + tabla `lead_events` |
 
 #### Máquina de estados — la cadencia
@@ -947,7 +1023,7 @@ CREATE TABLE leads (
   products_of_interest JSONB,            -- SKUs mencionados
   cadence_state JSONB,                   -- {step: "WA_3", scheduled_at: "..."}
   discount_offered JSONB,                -- {pct: 10, code: "LUCIA15", expires_at: "..."}
-  closed_order_id TEXT,                  -- id de Shopify si cerró
+  closed_order_id TEXT,                  -- id de la orden en WooCommerce si cerró
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
@@ -1017,7 +1093,7 @@ Responde con JSON: {action, content, tool_calls?, next_state}
 tools = [
     {"name": "get_product_info", "description": "Stock, tallas, precio, fotos, descripción"},
     {"name": "check_shipping", "description": "Tiempo y costo de envío al CP de la lead"},
-    {"name": "create_checkout_link", "description": "Genera link de Shopify checkout (draft order) opcionalmente con discount_code"},
+    {"name": "create_checkout_link", "description": "Genera link de checkout de WooCommerce (carrito pre-cargado o orden pendiente vía REST API), opcionalmente con coupon_code"},
     {"name": "issue_discount_code", "description": "Crea código de descuento personalizado dentro de la política de la marca"},
     {"name": "schedule_next_touch", "description": "Programa siguiente paso de la cadencia"},
     {"name": "pause_cadence", "description": "Detiene la cadencia (lead lo pidió o cerró)"},
@@ -1034,7 +1110,7 @@ tools = [
 3. Worker que lee `cadence_jobs` y ejecuta el paso (Temporal, BullMQ o cron simple para MVP).
 
 **Fase B — Conversational core (semana 2)**
-4. Implementar `get_product_info`, `check_shipping`, `create_checkout_link` (mock al inicio, luego Shopify real).
+4. Implementar `get_product_info`, `check_shipping`, `create_checkout_link` (mock al inicio, luego WooCommerce real vía REST API).
 5. Endpoint `POST /agents/sales-closer` con system prompt + tools.
 6. Loop de tool-calls hasta respuesta final.
 7. Loguear todo en `lead_events` y `messages`.
@@ -1064,7 +1140,7 @@ tools = [
 - [ ] Cumple cadencia y quiet hours respetando timezone de la lead.
 - [ ] **Nunca** ofrece descuento > tope ni antes del trigger.
 - [ ] STOP / "no me escriban" detiene cadencia inmediatamente.
-- [ ] Genera checkout link válido de Shopify.
+- [ ] Genera checkout link válido de WooCommerce (carrito pre-cargado + coupon aplicado si corresponde).
 - [ ] Conversión Lead→WON ≥ 15% en piloto Fuxia.
 - [ ] Lift medible vs control sin agente (ej. comparar con leads del mes anterior).
 - [ ] Logs completos para auditar cada toque.
@@ -1125,7 +1201,7 @@ tools = [
 - Logging y Sentry funcionando.
 
 ### Fase 1 — MVP (semana 3-10)
-- ✅ Knowledge Base + ingesta desde Shopify de Fuxia.
+- ✅ Knowledge Base + ingesta desde WooCommerce de Fuxia (REST API + webhooks).
 - ✅ Customer Memory (tabla + endpoints CRUD).
 - ✅ Brand Voice Config para Fuxia.
 - ✅ **Agente 1** end-to-end (WhatsApp + web).

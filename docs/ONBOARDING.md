@@ -11,7 +11,7 @@ Si algo no se entiende, **es bug del documento**, no tuyo. Anota la duda y la me
 HiloLabs es una **plataforma SaaS** para marcas de moda lideradas por mujeres latinas. Vendemos 3 productos integrados:
 
 1. **Hilo Loyalty** — programa de puntos, tiers VIP, referidos.
-2. **Hilo Commerce** — storefront (basado en Shopify) + app móvil.
+2. **Hilo Commerce** — storefront (basado en **WooCommerce**, sobre WordPress) + app móvil.
 3. **Hilo AI Stack** — 7 agentes de IA que automatizan operación, ventas y soporte.
 
 Cada cliente nuestro es una "marca" (un *tenant*). Una marca usa uno, dos o los tres productos.

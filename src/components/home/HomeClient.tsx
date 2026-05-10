@@ -141,7 +141,7 @@ export default function HomeClient() {
               {t("product_loyalty_title")}
             </h2>
             <ul className="space-y-4 mb-10">
-              {['Branded loyalty app (white-label)', 'Storefront integrado (Shopify)', 'AI agents (WhatsApp, AI Stylist)', 'Operator dashboard'].map((item, i) => (
+              {['Branded loyalty app (white-label)', 'Storefront integrado (WooCommerce)', 'AI agents (WhatsApp, AI Stylist)', 'Operator dashboard'].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-[var(--color-gray)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]" />
                   {item}

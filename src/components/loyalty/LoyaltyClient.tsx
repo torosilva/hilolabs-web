@@ -133,7 +133,7 @@ export default function LoyaltyClient() {
               <tr className="border-b border-white/10">
                 <th className="py-6 px-4 font-serif text-xl text-[var(--color-cream)]">Features</th>
                 <th className="py-6 px-4 font-serif text-xl text-[var(--color-fuchsia)] w-1/4">HiloLabs</th>
-                <th className="py-6 px-4 font-serif text-xl text-[var(--color-gray)] w-1/4 opacity-60">Smile.io + Shopify</th>
+                <th className="py-6 px-4 font-serif text-xl text-[var(--color-gray)] w-1/4 opacity-60">Smile.io + WooCommerce</th>
               </tr>
             </thead>
             <tbody className="text-[var(--color-gray)] font-light">
