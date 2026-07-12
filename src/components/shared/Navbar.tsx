@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="flex items-center h-full">
         <Link href="/" className="flex items-center group relative h-full py-2">
           <div className="relative w-[142px] h-[45px] flex-shrink-0 group-hover:scale-102 transition-transform duration-300">
-            <Image src="/logo-brand-clean.png" alt="Hilo Labs Logo" fill className="object-contain" priority />
+            <Image src="/logo-brand-clean-v2.png" alt="Hilo Labs Logo" fill className="object-contain" priority />
           </div>
         </Link>
       </div>
@@ -55,7 +55,7 @@ export default function Navbar() {
           href="/book-demo"
           className="bg-[var(--color-fuchsia)] text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all active:scale-95"
         >
-          {t("loyalty")}
+          {t("book_demo")}
         </Link>
       </div>
     </nav>

@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1">
           <div className="flex justify-start mb-6">
             <div className="relative w-[189px] h-[60px] flex-shrink-0 opacity-80 hover:opacity-100 transition-all duration-300">
-              <Image src="/logo-brand-clean.png" alt="Hilo Labs Logo" fill className="object-contain" />
+              <Image src="/logo-brand-clean-v2.png" alt="Hilo Labs Logo" fill className="object-contain" />
             </div>
           </div>
           <p className="text-[var(--color-gray)] text-sm leading-relaxed mb-6">
