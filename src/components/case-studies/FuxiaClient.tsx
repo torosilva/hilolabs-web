@@ -40,21 +40,21 @@ export default function FuxiaClient() {
       <section className="px-6 max-w-7xl mx-auto mb-24">
         <motion.div 
           {...fadeInUp}
-          className="w-full aspect-[21/9] bg-[#130E1B] rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center shadow-2xl"
+          className="w-full aspect-[21/9] bg-[var(--color-section-bg)] rounded-3xl border border-black/5 relative overflow-hidden flex items-center justify-center shadow-2xl"
         >
           <Image 
             src="/fuxia_editorial.png" 
             alt="Fuxia Ballerinas App Experience" 
             fill 
             sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover opacity-80 mix-blend-screen"
+            className="object-cover opacity-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-base)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-base)]/50 to-transparent" />
         </motion.div>
       </section>
 
       {/* Live Metrics Dashboard */}
-      <section className="py-12 px-6 border-y border-white/5 bg-white/[0.01] mb-24">
+      <section className="py-12 px-6 border-y border-black/5 bg-black/[0.01] mb-24">
         <div className="max-w-6xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-10">
             <h2 className="font-serif text-2xl text-[var(--color-cream)] flex items-center justify-center gap-3">
@@ -64,7 +64,7 @@ export default function FuxiaClient() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[1, 2, 3].map((metric) => (
-              <motion.div key={metric} {...fadeInUp} className="bg-[#130E1B] border border-white/5 p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:border-[var(--color-fuchsia)]/30 transition-colors">
+              <motion.div key={metric} {...fadeInUp} className="bg-[var(--color-section-bg)] border border-black/5 p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:border-[var(--color-fuchsia)]/30 transition-colors shadow-sm">
                 <span className="text-[var(--color-gray)] font-mono text-sm uppercase tracking-widest mb-4">
                   {t(`metric_${metric}_label` as any)}
                 </span>
@@ -112,7 +112,7 @@ export default function FuxiaClient() {
       <section className="px-6 max-w-5xl mx-auto mb-32">
         <motion.div 
           {...fadeInUp}
-          className="w-full aspect-[4/3] md:aspect-[16/9] bg-white/[0.02] rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center shadow-xl"
+          className="w-full aspect-[4/3] md:aspect-[16/9] bg-neutral-50 rounded-3xl border border-black/5 relative overflow-hidden flex items-center justify-center shadow-xl"
         >
           <Image 
             src="/hero_mockup.png" 
@@ -125,7 +125,7 @@ export default function FuxiaClient() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-6 border-t border-white/5 text-center">
+      <section className="py-24 px-6 border-t border-black/5 text-center">
         <motion.div {...fadeInUp}>
           <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-8">{t("cta_final")}</h2>
           <Link href="/book-demo" className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95 shadow-lg">

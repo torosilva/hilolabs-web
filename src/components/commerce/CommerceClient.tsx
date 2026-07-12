@@ -31,16 +31,16 @@ export default function CommerceClient() {
         </motion.div>
       </section>
 
-      <section className="py-24 px-6 border-t border-white/5 bg-[#130E1B]">
+      <section className="py-24 px-6 border-t border-black/5 bg-[var(--color-section-bg)]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-          <motion.div {...fadeInUp} className="bg-[var(--color-base)] p-12 rounded-3xl border border-white/5">
+          <motion.div {...fadeInUp} className="bg-white p-12 rounded-3xl border border-black/5 shadow-sm">
             <h3 className="font-serif text-3xl text-[var(--color-cream)] mb-4">{t("feature_1_title")}</h3>
             <p className="text-[var(--color-gray)] font-light leading-relaxed mb-8">
               {t("feature_1_desc")}
             </p>
-            <div className="w-full h-48 bg-white/5 rounded-xl border border-white/10" />
+            <div className="w-full h-48 bg-black/5 rounded-xl border border-black/10" />
           </motion.div>
-          <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="bg-[var(--color-base)] p-12 rounded-3xl border border-[var(--color-fuchsia)]/20">
+          <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="bg-white p-12 rounded-3xl border border-[var(--color-fuchsia)]/20 shadow-sm">
             <h3 className="font-serif text-3xl text-[var(--color-cream)] mb-4 text-[var(--color-fuchsia)]">{t("feature_2_title")}</h3>
             <p className="text-[var(--color-gray)] font-light leading-relaxed mb-8">
               {t("feature_2_desc")}

@@ -62,7 +62,7 @@ export default function HomeClient() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="lg:w-1/2 relative z-0 w-full aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/5"
+          className="lg:w-1/2 relative z-0 w-full aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-black/5"
         >
           <Image src="/hero_mockup.png" alt="HiloLabs Platform Mockup" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-base)] via-transparent to-transparent opacity-80" />
@@ -70,7 +70,7 @@ export default function HomeClient() {
       </section>
 
       {/* 2. Trust Bar */}
-      <section className="py-12 border-y border-white/5 bg-white/[0.02]">
+      <section className="py-12 border-y border-black/5 bg-black/[0.01]">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-sm font-mono text-[var(--color-gray)] uppercase tracking-widest mb-8">
             {t("trust_bar")}
@@ -99,7 +99,7 @@ export default function HomeClient() {
       </section>
 
       {/* 4. Pillars */}
-      <section className="py-24 px-6 bg-[#130E1B]">
+      <section className="py-24 px-6 bg-[var(--color-section-bg)]">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map((num) => (
@@ -109,7 +109,7 @@ export default function HomeClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: num * 0.1 }}
-                className="bg-[var(--color-base)] p-8 rounded-2xl border border-white/5 relative group hover:border-[var(--color-fuchsia)]/50 transition-colors"
+                className="bg-white p-8 rounded-2xl border border-black/5 relative group hover:border-[var(--color-fuchsia)]/50 transition-colors shadow-sm"
               >
                 <div className="w-12 h-12 rounded-full border border-[var(--color-fuchsia)]/30 flex items-center justify-center mb-8">
                   {/* Custom SVG icon placeholder */}
@@ -158,7 +158,7 @@ export default function HomeClient() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-[#130E1B] rounded-3xl p-8 md:p-12 border border-white/5 relative overflow-hidden"
+            className="bg-[var(--color-section-bg)] rounded-3xl p-8 md:p-12 border border-black/5 relative overflow-hidden shadow-sm"
           >
             <div className="absolute top-0 right-0 p-6 opacity-10">
               <span className="font-serif text-8xl">"</span>
@@ -185,7 +185,7 @@ export default function HomeClient() {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden relative border border-white/10">
+                <div className="w-12 h-12 rounded-full overflow-hidden relative border border-black/10">
                   <Image src="/fuxia_editorial.png" alt="Carolina Muñoz" fill className="object-cover" />
                 </div>
                 <div className="text-sm">

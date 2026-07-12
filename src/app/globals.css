@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-base: #0E0A14;
-  --color-cream: #F7F1EA;
-  --color-fuchsia: #C8246A;
-  --color-pink: #E8B4C8;
+  --color-base: #FFFFFF;
+  --color-cream: #0E0A14;
+  --color-fuchsia: #b45f24;
+  --color-pink: #d8ac8d;
   --color-ink: #1A1A1A;
-  --color-gray: #8B8680;
+  --color-gray: #666666;
+  --color-section-bg: #F9F8F6;
+  --color-border-subtle: rgba(0, 0, 0, 0.08);
 
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
@@ -18,9 +20,8 @@
     --foreground: var(--color-cream);
   }
 
-  /* Si alguna página es clara, se pueden invertir */
   .theme-light {
-    --background: var(--color-cream);
+    --background: var(--color-base);
     --foreground: var(--color-ink);
   }
 

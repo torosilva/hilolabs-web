@@ -59,7 +59,19 @@
     "tier_scale_desc": "Para marcas establecidas que necesitan AI completa.",
     "comparison_title": "Hilo vs El Resto",
     "faq_title": "Preguntas Frecuentes",
-    "cta_final": "Agendar demo"
+    "cta_final": "Agendar demo",
+    "starter_button": "Empezar",
+    "comparison_th_features": "Funcionalidades",
+    "comparison_th_hilo": "HiloLabs",
+    "comparison_th_other": "Smile.io + WooCommerce",
+    "comparison_row_1": "App nativa iOS/Android con tu marca",
+    "comparison_row_2": "AI Stylist embebido",
+    "comparison_row_3": "IA conversacional por WhatsApp",
+    "comparison_row_4": "CDP unificado (Base de datos)",
+    "comparison_row_5": "Sin requerir código",
+    "comparison_included": "✓ Incluido",
+    "comparison_requires_agency": "✕ Requiere agencia",
+    "cta_question": "¿Lista para ver a Hilo en acción?"
   },
   "AI": {
     "hero_h1": "Siete agentes AI trabajando para tu marca. 24/7.",
@@ -86,7 +98,8 @@
     "agent_7_desc": "Tu co-founder de AI que responde preguntas sobre tus métricas en lenguaje natural.",
     "agent_7_stack": "SQL Agent + Gemini 1.5 Pro",
     "tech_stack_title": "El Stack Técnico",
-    "cta_final": "¿Quieres este stack en tu marca? → Agendar demo"
+    "cta_final": "¿Quieres este stack en tu marca? → Agendar demo",
+    "try_on_suggest": "+3 piezas que te favorecen →"
   },
   "CaseStudiesIndex": {
     "hero_eyebrow": "Casos de Éxito",
@@ -125,7 +138,8 @@
     "mission_title": "Nuestra Misión",
     "mission_desc": "Equipar a marcas de moda latinas con infraestructura de IA y lealtad de nivel enterprise, nivelando el campo de juego contra el fast-fashion.",
     "founder_title": "El Equipo",
-    "founder_desc": "Fundado por el equipo detrás de Fuxia Ballerinas. Hemos empaquetado todo nuestro playbook operativo, estrategias de marketing y agentes de IA en HiloLabs."
+    "founder_desc": "Fundado por el equipo detrás de Fuxia Ballerinas. Hemos empaquetado todo nuestro playbook operativo, estrategias de marketing y agentes de IA en HiloLabs.",
+    "meet_founders": "Conoce a los fundadores"
   },
   "Commerce": {
     "hero_h1": "Hilo Commerce",
@@ -143,6 +157,50 @@
     "faq_1_q": "¿Necesito migrar de WooCommerce?",
     "faq_1_a": "No, Hilo Loyalty y los agentes de IA se integran directamente en tu tienda WooCommerce actual.",
     "faq_2_q": "¿Hay costo de setup?",
-    "faq_2_a": "Sí, dependiendo del nivel, aplica un cargo único de onboarding para entrenar a tus agentes de IA y configurar la app."
+    "faq_2_a": "Sí, dependiendo del nivel, aplica un cargo único de onboarding para entrenar a tus agentes de IA y configurar la app.",
+    "starter_title": "Starter",
+    "starter_desc": "Para boutiques listas para capturar datos.",
+    "growth_title": "Growth",
+    "growth_desc": "Para marcas escalando que necesitan una app.",
+    "scale_title": "Scale",
+    "scale_desc": "Para marcas establecidas que necesitan AI completa.",
+    "price_suffix": "/mes",
+    "most_popular": "Más Popular",
+    "book_demo": "Agendar demo",
+    "feature_starter_1": "Hasta 5k clientes",
+    "feature_starter_2": "Motor de Lealtad",
+    "feature_starter_3": "Soporte por Email",
+    "feature_growth_1": "Todo en Starter",
+    "feature_growth_2": "App nativa iOS y Android",
+    "feature_growth_3": "AI Stylist (Básico)",
+    "feature_growth_4": "Notificaciones por WhatsApp",
+    "feature_scale_1": "Todo en Growth",
+    "feature_scale_2": "7 agentes de IA completos",
+    "feature_scale_3": "Computer Vision a la medida",
+    "feature_scale_4": "Account Manager dedicado"
+  },
+  "BookDemo": {
+    "hero_h1": "Agendar llamada de descubrimiento",
+    "hero_sub": "Hablemos de cómo HiloLabs puede tejer tecnología en tu marca.",
+    "meeting_title": "Llamada de descubrimiento",
+    "duration": "30 min",
+    "location": "Google Meet",
+    "description": "Analizaremos tu stack tecnológico actual, tus objetivos y veremos si Hilo Loyalty es la opción ideal para escalar tu marca.",
+    "pending_title": "Integración de calendario pendiente",
+    "pending_desc": "(Este espacio está reservado para el embed de Cal.com. Una vez que se proporcione el enlace de calendario de Mario, se inyectará aquí directamente)."
+  },
+  "Footer": {
+    "tagline": "La infraestructura de IA para marcas de moda lideradas por latinas.",
+    "usa_office": "30 N Gould St Ste R, Sheridan, WY 82801",
+    "mx_office": "Operaciones en Ciudad de México",
+    "phone": "Teléfono: +1 (307) 363-7036",
+    "email": "Correo: info@hilolabs.ai",
+    "investors": "Relaciones con inversionistas",
+    "playbook_title": "Obtén el Playbook",
+    "playbook_desc": "Obtén el manual exacto que construimos para Fuxia. Mensual, sin rodeos.",
+    "playbook_button": "Unirse",
+    "copyright": "© {year} HiloLabs.ai LLC. Todos los derechos reservados.",
+    "privacy_policy": "Política de Privacidad",
+    "terms_of_service": "Términos de Servicio"
   }
 }

@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function BookDemoPage() {
+  const t = useTranslations("BookDemo");
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -12,40 +15,40 @@ export default function BookDemoPage() {
     >
       <div className="max-w-2xl w-full text-center mb-12">
         <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-cream)] mb-4">
-          Book a Discovery Call
+          {t("hero_h1")}
         </h1>
         <p className="text-[var(--color-gray)] text-lg font-light">
-          Let's discuss how HiloLabs can weave technology into your brand.
+          {t("hero_sub")}
         </p>
       </div>
 
       {/* Cal.com Placeholder Interface */}
-      <div className="w-full max-w-4xl bg-[var(--color-base)] border border-white/10 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+      <div className="w-full max-w-4xl bg-white border border-black/10 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-fuchsia)] to-transparent opacity-50" />
         
         <div className="flex flex-col md:flex-row gap-12">
           {/* Left Column: Meeting Details */}
-          <div className="md:w-1/3 border-r border-white/5 pr-8">
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 mb-6 relative">
+          <div className="md:w-1/3 border-r border-black/5 pr-8">
+            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/10 mb-6 relative">
               {/* Profile pic placeholder */}
               <div className="absolute inset-0 bg-[var(--color-fuchsia)]/20 flex items-center justify-center text-[var(--color-fuchsia)] font-serif text-xl">
                 M
               </div>
             </div>
             <h3 className="text-xl text-[var(--color-cream)] mb-2">Mario Silva</h3>
-            <h4 className="text-2xl font-serif text-[var(--color-cream)] mb-4">Discovery Call</h4>
+            <h4 className="text-2xl font-serif text-[var(--color-cream)] mb-4">{t("meeting_title")}</h4>
             <div className="flex flex-col gap-3 text-sm text-[var(--color-gray)]">
               <div className="flex items-center gap-2">
-                <span className="w-4 h-4 text-white/50 border border-white/30 rounded-full flex items-center justify-center text-[10px]">🕒</span>
-                30 Min
+                <span className="w-4 h-4 text-black/50 border border-black/30 rounded-full flex items-center justify-center text-[10px]">🕒</span>
+                {t("duration")}
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-4 h-4 text-white/50 border border-white/30 rounded-full flex items-center justify-center text-[10px]">📍</span>
-                Google Meet
+                <span className="w-4 h-4 text-black/50 border border-black/30 rounded-full flex items-center justify-center text-[10px]">📍</span>
+                {t("location")}
               </div>
             </div>
             <p className="text-sm text-[var(--color-gray)] mt-6 leading-relaxed">
-              We'll discuss your current tech stack, your goals, and see if Hilo Loyalty is the right fit to scale your brand.
+              {t("description")}
             </p>
           </div>
 
@@ -59,9 +62,9 @@ export default function BookDemoPage() {
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
             </div>
-            <h3 className="text-lg text-[var(--color-cream)] mb-2">Calendar Integration Pending</h3>
+            <h3 className="text-lg text-[var(--color-cream)] mb-2">{t("pending_title")}</h3>
             <p className="text-sm text-[var(--color-gray)] max-w-md">
-              (This space is reserved for the Cal.com embed. Once Mario's calendar link is provided, it will be injected here directly).
+              {t("pending_desc")}
             </p>
           </div>
         </div>

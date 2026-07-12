@@ -31,7 +31,7 @@ export default function AboutClient() {
         </motion.div>
       </section>
 
-      <section className="py-24 px-6 border-y border-white/5 bg-white/[0.02]">
+      <section className="py-24 px-6 border-y border-black/5 bg-black/[0.01]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeInUp}>
              <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-6">{t("mission_title")}</h2>
@@ -44,7 +44,7 @@ export default function AboutClient() {
 
       <section className="py-32 px-6 max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <motion.div {...fadeInUp} className="w-full aspect-square bg-[#130E1B] rounded-3xl border border-white/5 relative overflow-hidden shadow-2xl flex items-center justify-center">
+          <motion.div {...fadeInUp} className="w-full aspect-square bg-[var(--color-section-bg)] rounded-3xl border border-black/5 relative overflow-hidden shadow-2xl flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-fuchsia)]/20 to-transparent" />
             <div className="font-serif text-6xl text-[var(--color-fuchsia)] opacity-50">HILO</div>
           </motion.div>
@@ -53,8 +53,8 @@ export default function AboutClient() {
             <p className="text-[var(--color-gray)] text-lg font-light leading-relaxed mb-10">
               {t("founder_desc")}
             </p>
-            <Link href="/book-demo" className="inline-block bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all">
-              Meet the founders
+            <Link href="/book-demo" className="inline-block bg-[var(--foreground)] text-[var(--background)] px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95">
+              {t("meet_founders")}
             </Link>
           </motion.div>
         </div>

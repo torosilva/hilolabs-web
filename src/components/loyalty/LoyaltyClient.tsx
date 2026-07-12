@@ -29,12 +29,12 @@ export default function LoyaltyClient() {
           <p className="text-[var(--color-gray)] text-lg md:text-xl max-w-2xl mx-auto font-light mb-10">
             {t("how_it_works_title")} is simple. Unify your customer data, launch a branded app, and let our AI handle the rest.
           </p>
-          <div className="w-full h-[400px] md:h-[500px] bg-[var(--color-base)] rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden flex items-center justify-center">
+          <div className="w-full h-[400px] md:h-[500px] bg-white rounded-3xl border border-black/5 shadow-xl relative overflow-hidden flex items-center justify-center">
              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-fuchsia)]/10 to-transparent" />
              {/* Abstract wireframe of the platform */}
-             <div className="relative w-64 h-full border-x border-white/10 flex flex-col items-center justify-end pb-8">
-               <div className="w-48 h-80 bg-[#130E1B] rounded-2xl border border-white/20 shadow-lg relative overflow-hidden">
-                 <div className="absolute top-4 left-4 right-4 h-12 bg-white/5 rounded-lg" />
+             <div className="relative w-64 h-full border-x border-black/10 flex flex-col items-center justify-end pb-8">
+               <div className="w-48 h-80 bg-[var(--color-section-bg)] rounded-2xl border border-black/10 shadow-lg relative overflow-hidden">
+                 <div className="absolute top-4 left-4 right-4 h-12 bg-black/5 rounded-lg" />
                  <div className="absolute top-20 left-4 right-4 bottom-4 bg-[var(--color-fuchsia)]/10 rounded-lg flex flex-col gap-2 p-2">
                    <div className="w-full h-1/3 bg-[var(--color-fuchsia)]/20 rounded-md" />
                    <div className="w-full h-1/3 bg-[var(--color-fuchsia)]/20 rounded-md" />
@@ -42,13 +42,13 @@ export default function LoyaltyClient() {
                  </div>
                </div>
              </div>
-             <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[var(--color-base)] to-transparent" />
+             <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white to-transparent" />
           </div>
         </motion.div>
       </section>
 
       {/* How it works */}
-      <section className="py-24 px-6 border-y border-white/5 bg-white/[0.02]">
+      <section className="py-24 px-6 border-y border-black/5 bg-black/[0.01]">
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
             <h2 className="font-serif text-3xl md:text-4xl text-[var(--color-cream)]">{t("how_it_works_title")}</h2>
@@ -56,11 +56,11 @@ export default function LoyaltyClient() {
           
           <div className="grid md:grid-cols-3 gap-12 relative">
             {/* Connecting line for desktop */}
-            <div className="hidden md:block absolute top-6 left-1/6 right-1/6 h-px bg-white/10" />
+            <div className="hidden md:block absolute top-6 left-1/6 right-1/6 h-px bg-black/10" />
             
             {[1, 2, 3].map((step) => (
               <motion.div key={step} {...fadeInUp} transition={{ delay: step * 0.1 }} className="relative flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[var(--color-base)] border border-[var(--color-fuchsia)]/40 flex items-center justify-center text-[var(--color-fuchsia)] font-mono z-10 shadow-[0_0_15px_rgba(200,36,106,0.2)] mb-6">
+                <div className="w-12 h-12 rounded-full bg-white border border-[var(--color-fuchsia)]/40 flex items-center justify-center text-[var(--color-fuchsia)] font-mono z-10 shadow-[0_0_15px_rgba(200,36,106,0.2)] mb-6">
                   {step}
                 </div>
                 <h3 className="text-xl font-serif text-[var(--color-cream)] mb-3">{t(`step_${step}_title` as any)}</h3>
@@ -81,7 +81,7 @@ export default function LoyaltyClient() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[1, 2, 3, 4].map((f) => (
-            <motion.div key={f} {...fadeInUp} className="bg-[#130E1B] p-10 rounded-3xl border border-white/5 group hover:border-[var(--color-fuchsia)]/30 transition-colors">
+            <motion.div key={f} {...fadeInUp} className="bg-[var(--color-section-bg)] p-10 rounded-3xl border border-black/5 group hover:border-[var(--color-fuchsia)]/30 transition-colors shadow-sm">
               <div className="w-10 h-10 rounded-lg bg-[var(--color-fuchsia)]/10 flex items-center justify-center text-[var(--color-fuchsia)] mb-6">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12l5 5l10 -10"></path></svg>
               </div>
@@ -112,7 +112,7 @@ export default function LoyaltyClient() {
                     <span className="text-gray-400 font-mono text-sm mb-1">/mo</span>
                   </div>
                   <Link href="/book-demo" className={`block w-full py-3 rounded-full text-center font-medium transition-colors ${tier === "growth" ? "bg-[var(--color-fuchsia)] text-white hover:bg-opacity-90" : "bg-black/5 text-black hover:bg-black/10"}`}>
-                    Get Started
+                    {t("starter_button")}
                   </Link>
                 </div>
               </motion.div>
@@ -130,24 +130,24 @@ export default function LoyaltyClient() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="py-6 px-4 font-serif text-xl text-[var(--color-cream)]">Features</th>
-                <th className="py-6 px-4 font-serif text-xl text-[var(--color-fuchsia)] w-1/4">HiloLabs</th>
-                <th className="py-6 px-4 font-serif text-xl text-[var(--color-gray)] w-1/4 opacity-60">Smile.io + WooCommerce</th>
+              <tr className="border-b border-black/10">
+                <th className="py-6 px-4 font-serif text-xl text-[var(--color-cream)]">{t("comparison_th_features")}</th>
+                <th className="py-6 px-4 font-serif text-xl text-[var(--color-fuchsia)] w-1/4">{t("comparison_th_hilo")}</th>
+                <th className="py-6 px-4 font-serif text-xl text-[var(--color-gray)] w-1/4 opacity-60">{t("comparison_th_other")}</th>
               </tr>
             </thead>
             <tbody className="text-[var(--color-gray)] font-light">
               {[
-                "Branded Native iOS/Android App",
-                "Embedded AI Stylist",
-                "WhatsApp Conversational AI",
-                "Unified CDP",
-                "No coding required"
+                t("comparison_row_1"),
+                t("comparison_row_2"),
+                t("comparison_row_3"),
+                t("comparison_row_4"),
+                t("comparison_row_5")
               ].map((row, i) => (
-                <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                <tr key={i} className="border-b border-black/5 hover:bg-black/[0.01] transition-colors">
                   <td className="py-6 px-4">{row}</td>
-                  <td className="py-6 px-4 text-[var(--color-fuchsia)]">✓ Included</td>
-                  <td className="py-6 px-4 opacity-50">✕ Requires Agency</td>
+                  <td className="py-6 px-4 text-[var(--color-fuchsia)]">{t("comparison_included")}</td>
+                  <td className="py-6 px-4 opacity-50">{t("comparison_requires_agency")}</td>
                 </tr>
               ))}
             </tbody>
@@ -156,9 +156,9 @@ export default function LoyaltyClient() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-white/5 text-center">
+      <section className="py-24 px-6 border-t border-black/5 text-center">
         <motion.div {...fadeInUp}>
-          <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-8">Ready to see Hilo in action?</h2>
+          <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-8">{t("cta_question")}</h2>
           <Link href="/book-demo" className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95 shadow-lg">
             {t("cta_final")}
           </Link>

@@ -17,14 +17,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-6 bg-[#0E0A14] border-b border-white/5">
-      {/* Izquierda: Logo y Nombre */}
-      <div className="flex items-center gap-3 relative h-full">
-        <Link href="/" className="flex items-center group relative h-full">
-          <div className="absolute top-1/2 -translate-y-1/2 -left-6 w-32 h-32 md:w-40 md:h-40 pointer-events-none group-hover:scale-105 transition-transform duration-500">
-            <Image src="/logo-clean.png" alt="HiloLabs Logo" fill className="object-cover" />
+    <nav className="fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-6 bg-white/85 backdrop-blur-md border-b border-black/5">
+      {/* Izquierda: Logo */}
+      <div className="flex items-center h-full">
+        <Link href="/" className="flex items-center group relative h-full py-2">
+          <div className="relative w-[142px] h-[45px] flex-shrink-0 group-hover:scale-102 transition-transform duration-300">
+            <Image src="/logo-brand-clean.png" alt="Hilo Labs Logo" fill className="object-contain" priority />
           </div>
-          <span className="font-serif text-3xl tracking-tight hidden md:block ml-24 md:ml-28 text-[var(--color-cream)] relative z-10">HiloLabs</span>
         </Link>
       </div>
 

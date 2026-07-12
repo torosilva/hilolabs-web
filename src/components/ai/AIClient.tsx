@@ -44,13 +44,13 @@ export default function AIClient() {
                 className={`flex flex-col ${i % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 md:gap-20`}
               >
                 {/* Agent Visual */}
-                <div className="w-full md:w-1/2 h-[400px] bg-[#130E1B] rounded-3xl border border-white/5 relative overflow-hidden group">
+                <div className="w-full md:w-1/2 h-[400px] bg-[var(--color-section-bg)] rounded-3xl border border-black/5 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-[var(--color-fuchsia)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                   {agent === 5 ? (
                     // Virtual Try-On visual: silhouette + scan + cross-sell
-                    <div className="absolute inset-8 border border-white/10 rounded-2xl p-6 flex flex-col backdrop-blur-sm bg-white/[0.01]">
-                      <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                    <div className="absolute inset-8 border border-black/10 rounded-2xl p-6 flex flex-col bg-white/80">
+                      <div className="flex justify-between items-center border-b border-black/10 pb-3">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[var(--color-fuchsia)] animate-pulse" />
                           <span className="font-mono text-[10px] text-[var(--color-gray)] uppercase tracking-widest">Body Scan</span>
@@ -60,7 +60,7 @@ export default function AIClient() {
 
                       <div className="flex-1 flex gap-4 mt-4 min-h-0">
                         {/* Silhouette + scan line */}
-                        <div className="relative w-1/3 border border-white/10 rounded-lg overflow-hidden bg-black/20">
+                        <div className="relative w-1/3 border border-black/10 rounded-lg overflow-hidden bg-neutral-100">
                           <svg viewBox="0 0 60 140" className="w-full h-full" fill="none" stroke="currentColor" strokeWidth="1" preserveAspectRatio="xMidYMid meet">
                             <g className="text-[var(--color-fuchsia)]/60">
                               <circle cx="30" cy="18" r="9" />
@@ -81,30 +81,30 @@ export default function AIClient() {
 
                         {/* Try-on + cross-sell items */}
                         <div className="flex-1 flex flex-col gap-2">
-                          <div className="flex-1 bg-[var(--color-fuchsia)]/15 border border-[var(--color-fuchsia)]/30 rounded-md flex items-end p-2">
-                            <span className="font-mono text-[9px] text-[var(--color-cream)]">try-on.jpg</span>
-                          </div>
-                          <div className="grid grid-cols-3 gap-1.5">
-                            {[1, 2, 3].map((n) => (
-                              <div key={n} className="aspect-square bg-white/5 border border-white/10 rounded-sm" />
-                            ))}
-                          </div>
-                          <div className="font-mono text-[9px] text-[var(--color-gray)] leading-tight">
-                            +3 piezas que te favorecen →
-                          </div>
+                           <div className="flex-1 bg-[var(--color-fuchsia)]/15 border border-[var(--color-fuchsia)]/30 rounded-md flex items-end p-2">
+                             <span className="font-mono text-[9px] text-[var(--color-fuchsia)]">try-on.jpg</span>
+                           </div>
+                           <div className="grid grid-cols-3 gap-1.5">
+                             {[1, 2, 3].map((n) => (
+                               <div key={n} className="aspect-square bg-black/5 border border-black/10 rounded-sm" />
+                             ))}
+                           </div>
+                           <div className="font-mono text-[9px] text-[var(--color-gray)] leading-tight">
+                             {t("try_on_suggest")}
+                           </div>
                         </div>
                       </div>
                     </div>
                   ) : (
                     // Default abstract agent UI
-                    <div className="absolute inset-8 border border-white/10 rounded-2xl p-6 flex flex-col justify-between backdrop-blur-sm bg-white/[0.01]">
-                       <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                    <div className="absolute inset-8 border border-black/10 rounded-2xl p-6 flex flex-col justify-between bg-white/80">
+                       <div className="flex justify-between items-center border-b border-black/10 pb-4">
                          <div className="w-3 h-3 rounded-full bg-[var(--color-fuchsia)] animate-pulse" />
                          <span className="font-mono text-xs text-[var(--color-gray)]">{t(`agent_${agent}_stack` as any).split('+')[0]}</span>
                        </div>
                        <div className="flex-1 mt-6 flex flex-col gap-4">
-                          <div className="w-3/4 h-8 bg-white/5 rounded-md" />
-                          <div className="w-1/2 h-8 bg-white/5 rounded-md" />
+                          <div className="w-3/4 h-8 bg-black/5 rounded-md" />
+                          <div className="w-1/2 h-8 bg-black/5 rounded-md" />
                           {i === 0 || i === 1 ? (
                              <div className="w-full h-8 bg-[var(--color-fuchsia)]/20 rounded-md self-end mt-auto" />
                           ) : null}
@@ -115,7 +115,7 @@ export default function AIClient() {
 
                 {/* Agent Content */}
                 <div className="w-full md:w-1/2 flex flex-col items-start">
-                  <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full font-mono text-xs text-[var(--color-gray)] mb-6">
+                  <div className="px-3 py-1 bg-black/5 border border-black/10 rounded-full font-mono text-xs text-[var(--color-gray)] mb-6">
                     AGENT {agent}
                   </div>
                   <h2 className="font-serif text-3xl md:text-5xl text-[var(--color-cream)] mb-6">
@@ -125,7 +125,7 @@ export default function AIClient() {
                     {t(`agent_${agent}_desc` as any)}
                   </p>
                   
-                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 w-full">
+                  <div className="bg-black/5 border border-black/10 rounded-xl p-4 w-full">
                     <div className="text-xs uppercase tracking-widest font-mono text-[var(--color-gray)] mb-2">Technical Stack</div>
                     <div className="font-mono text-sm text-[var(--color-fuchsia)]">
                       {t(`agent_${agent}_stack` as any)}
@@ -139,7 +139,7 @@ export default function AIClient() {
       </section>
 
       {/* Tech Stack Consolidado */}
-      <section className="py-32 px-6 border-y border-white/5 bg-[var(--color-base)]">
+      <section className="py-32 px-6 border-y border-black/5 bg-white">
         <div className="max-w-4xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
             <h2 className="font-serif text-4xl text-[var(--color-cream)]">{t("tech_stack_title")}</h2>
@@ -154,7 +154,7 @@ export default function AIClient() {
                { name: "Uptime", val: "99.99% SLA" },
                { name: "Latency", val: "< 800ms avg response" }
              ].map((item, i) => (
-               <motion.div key={i} {...fadeInUp} className="flex justify-between items-center p-4 border border-white/10 rounded-lg bg-[#130E1B]">
+               <motion.div key={i} {...fadeInUp} className="flex justify-between items-center p-4 border border-black/5 rounded-lg bg-[var(--color-section-bg)]">
                  <span className="text-[var(--color-gray)]">{item.name}</span>
                  <span className="text-[var(--color-fuchsia)] text-right">{item.val}</span>
                </motion.div>
