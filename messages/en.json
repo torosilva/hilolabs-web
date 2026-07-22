@@ -236,5 +236,30 @@
     "section4_text": "HiloLabs.ai LLC shall not be liable for any indirect, incidental, or special damages resulting from the use or inability to use our services.",
     "section5_title": "5. Governing Law",
     "section5_text": "These terms are governed by and construed in accordance with the laws of the State of Wyoming, USA, without giving effect to conflict of law principles."
+  },
+  "Support": {
+    "title": "Technical Support & Contact",
+    "effective_date": "HiloLabs Help Center",
+    "intro": "We are here to help. If you experience technical issues with the Fuxia Ballerinas application or HiloLabs platform, or need assistance with your account, please contact us through any of these channels.",
+    "email": "Support Email",
+    "phone": "Phone",
+    "address": "Principal Office",
+    "cta_title": "Prefer to schedule a call?",
+    "cta_desc": "You can schedule a technical support or discovery session directly with our engineering team.",
+    "cta_button": "Book a Call"
+  },
+  "Marketing": {
+    "title": "HiloLabs Marketing & Features",
+    "effective_date": "Fashion & Technology Platform",
+    "intro": "HiloLabs provides advanced technology infrastructure for fashion retail, powering native mobile experiences and intelligent loyalty systems.",
+    "section1_title": "Native Mobile Applications",
+    "section1_desc": "We develop and integrate iOS and Android apps (like the Fuxia Ballerinas app) connected in real-time to e-commerce catalogs (WooCommerce/Shopify).",
+    "section2_title": "Loyalty & Engagement Engine",
+    "section2_desc": "Rewards systems, purchase points, and dynamic coupons that increase customer retention.",
+    "section3_title": "Next-Gen AI Assistants",
+    "section3_desc": "Specialized agents for WhatsApp, Instagram, and email that resolve support queries, suggest sizes, and close sales autonomously.",
+    "cta_title": "Take your brand to the next level",
+    "cta_desc": "Discover how we can automate your operations and launch your fashion brand's mobile application.",
+    "cta_button": "View Demo"
   }
 }

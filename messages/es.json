@@ -236,5 +236,30 @@
     "section4_text": "HiloLabs.ai LLC no será responsable por daños indirectos, incidentales o especiales que resulten del uso o la imposibilidad de usar nuestros servicios.",
     "section5_title": "5. Ley Aplicable",
     "section5_text": "Estos términos se rigen e interpretan de acuerdo con las leyes del estado de Wyoming, Estados Unidos, sin dar efecto a sus principios de conflicto de leyes."
+  },
+  "Support": {
+    "title": "Soporte Técnico y Contacto",
+    "effective_date": "HiloLabs Help Center",
+    "intro": "Estamos aquí para ayudarte. Si tienes problemas técnicos con la aplicación de Fuxia Ballerinas o la plataforma de HiloLabs, o necesitas asistencia con tu cuenta, por favor contáctanos por cualquiera de estos medios.",
+    "email": "Correo de Soporte",
+    "phone": "Teléfono",
+    "address": "Oficina Principal",
+    "cta_title": "¿Prefieres agendar una llamada?",
+    "cta_desc": "Puedes programar una sesión de soporte técnico o de descubrimiento directamente con nuestro equipo técnico.",
+    "cta_button": "Agendar Llamada"
+  },
+  "Marketing": {
+    "title": "Marketing y Características de HiloLabs",
+    "effective_date": "Plataforma de Moda y Tecnología",
+    "intro": "HiloLabs provee infraestructura tecnológica avanzada para el comercio minorista de moda y calzado, impulsando experiencias móviles nativas y sistemas inteligentes de lealtad.",
+    "section1_title": "Aplicaciones Móviles Nativas",
+    "section1_desc": "Desarrollamos e integramos aplicaciones iOS y Android (como la app de Fuxia Ballerinas) conectadas en tiempo real con catálogos de e-commerce (WooCommerce/Shopify).",
+    "section2_title": "Motor de Lealtad y Fidelización",
+    "section2_desc": "Sistemas de recompensas, puntos por compras y cupones dinámicos que aumentan la retención del cliente final.",
+    "section3_title": "Asistentes de IA de Próxima Generación",
+    "section3_desc": "Agentes especializados para WhatsApp, Instagram y correo electrónico que resuelven dudas de soporte, sugieren tallas y cierran ventas de forma autónoma.",
+    "cta_title": "Lleva tu marca al siguiente nivel",
+    "cta_desc": "Descubre cómo podemos automatizar tus operaciones y lanzar la aplicación móvil de tu marca de moda.",
+    "cta_button": "Ver Demostración"
   }
 }
