@@ -203,5 +203,38 @@
     "copyright": "© {year} HiloLabs.ai LLC. Todos los derechos reservados.",
     "privacy_policy": "Política de Privacidad",
     "terms_of_service": "Términos de Servicio"
+  },
+  "Privacy": {
+    "title": "Política de Privacidad",
+    "effective_date": "Fecha de vigencia: Julio 2026",
+    "intro": "En HiloLabs.ai LLC, valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta Política de Privacidad describe cómo recopilamos, utilizamos y protegemos tu información.",
+    "section1_title": "1. Información que Recopilamos",
+    "section1_text": "Recopilamos información que nos proporcionas directamente al registrarte, suscribirte o contactar a soporte, como tu nombre, correo electrónico y número de teléfono.",
+    "section2_title": "2. Cómo Usamos la Información",
+    "section2_text": "Utilizamos la información recopilada para operar, mantener y mejorar nuestros servicios, incluyendo el entrenamiento de los asistentes de IA de tu marca, resolver dudas de soporte y enviar actualizaciones de seguridad.",
+    "section3_title": "3. Compartir Información",
+    "section3_text": "No compartimos, vendemos ni alquilamos tus datos personales a terceros, excepto cuando sea necesario para cumplir con la ley, procesar pagos o proveer soporte técnico autorizado.",
+    "section4_title": "4. Tus Derechos",
+    "section4_text": "Tienes el derecho de acceder, corregir o solicitar la eliminación de tu información personal en cualquier momento enviándonos un correo electrónico.",
+    "section5_title": "5. Soporte y Contacto",
+    "section5_text": "Si tienes preguntas sobre esta Política de Privacidad o necesitas soporte técnico relacionado con nuestra plataforma o la aplicación móvil de Fuxia Ballerinas, puedes contactarnos en cualquier momento a:",
+    "contact_email": "info@hilolabs.ai",
+    "contact_phone": "+1 (307) 363-7036",
+    "contact_address": "30 N Gould St Ste R, Sheridan, WY 82801"
+  },
+  "Terms": {
+    "title": "Términos de Servicio",
+    "effective_date": "Fecha de vigencia: Julio 2026",
+    "intro": "Al acceder o utilizar los servicios de HiloLabs.ai LLC, aceptas cumplir con los siguientes Términos de Servicio.",
+    "section1_title": "1. Aceptación de Términos",
+    "section1_text": "Al utilizar nuestro sitio web o servicios, confirmas que aceptas estos términos. Si no estás de acuerdo, debes abstenerte de utilizar el sitio.",
+    "section2_title": "2. Descripción del Servicio",
+    "section2_text": "HiloLabs proporciona infraestructura de IA y desarrollo de aplicaciones móviles para marcas de moda. El acceso a nuestros servicios está sujeto a los planes de suscripción activos.",
+    "section3_title": "3. Responsabilidades del Usuario",
+    "section3_text": "Eres responsable de mantener la confidencialidad de tus credenciales y de toda actividad realizada bajo tu cuenta de HiloLabs.",
+    "section4_title": "4. Limitación de Responsabilidad",
+    "section4_text": "HiloLabs.ai LLC no será responsable por daños indirectos, incidentales o especiales que resulten del uso o la imposibilidad de usar nuestros servicios.",
+    "section5_title": "5. Ley Aplicable",
+    "section5_text": "Estos términos se rigen e interpretan de acuerdo con las leyes del estado de Wyoming, Estados Unidos, sin dar efecto a sus principios de conflicto de leyes."
   }
 }
