@@ -3,10 +3,13 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import type { Service } from "@/lib/site";
 
 export default function Footer() {
   const t = useTranslations("Navigation");
   const tf = useTranslations("Footer");
+  const ts = useTranslations("Services");
+  const services = ts.raw("items") as Service[];
 
   return (
     <footer className="bg-[var(--color-section-bg)] border-t border-black/5 py-16 px-6">
@@ -29,48 +32,39 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-serif text-[var(--foreground)] mb-4">Platform</h4>
+          <h4 className="font-serif text-[var(--foreground)] mb-4">{tf("services_title")}</h4>
           <ul className="flex flex-col gap-3 text-sm text-[var(--color-gray)]">
-            <li><Link href="/loyalty" className="hover:text-[var(--color-pink)] transition-colors">{t("loyalty")}</Link></li>
-            <li><Link href="/ai" className="hover:text-[var(--color-pink)] transition-colors">{t("ai")}</Link></li>
-            <li><Link href="/commerce" className="hover:text-[var(--color-pink)] transition-colors">{t("commerce")}</Link></li>
+            {services.map((s) => (
+              <li key={s.id}>
+                <Link href={`/services#${s.id}`} className="hover:text-[var(--color-pink)] transition-colors">{s.title}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
-          <h4 className="font-serif text-[var(--foreground)] mb-4">Company</h4>
+          <h4 className="font-serif text-[var(--foreground)] mb-4">{tf("company_title")}</h4>
           <ul className="flex flex-col gap-3 text-sm text-[var(--color-gray)]">
             <li><Link href="/about" className="hover:text-[var(--color-pink)] transition-colors">{t("about")}</Link></li>
             <li><Link href="/case-studies" className="hover:text-[var(--color-pink)] transition-colors">{t("case_studies")}</Link></li>
+            <li><Link href="/loyalty" className="hover:text-[var(--color-pink)] transition-colors">{t("hilo")}</Link></li>
             <li><Link href="/pricing" className="hover:text-[var(--color-pink)] transition-colors">{t("pricing")}</Link></li>
-            <li><Link href="/investors" className="hover:text-[var(--color-pink)] transition-colors text-xs opacity-60">{tf("investors")}</Link></li>
+            <li><Link href="/contact" className="hover:text-[var(--color-pink)] transition-colors">{t("contact")}</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="font-serif text-[var(--foreground)] mb-4">{tf("playbook_title")}</h4>
-          <p className="text-sm text-[var(--color-gray)] mb-4">
-            {tf("playbook_desc")}
-          </p>
-          <form className="flex" onSubmit={(e) => e.preventDefault()}>
-            <input 
-              type="email" 
-              placeholder="founder@brand.com" 
-              className="bg-black/5 border border-black/10 rounded-l-md px-4 py-2 text-sm w-full focus:outline-none focus:border-[var(--color-fuchsia)] text-[var(--foreground)]"
-            />
-            <button className="bg-[var(--color-fuchsia)] text-white px-4 py-2 rounded-r-md text-sm font-medium hover:bg-opacity-90">
-              {tf("playbook_button")}
-            </button>
-          </form>
+          <h4 className="font-serif text-[var(--foreground)] mb-4">{tf("legal_title")}</h4>
+          <ul className="flex flex-col gap-3 text-sm text-[var(--color-gray)]">
+            <li><Link href="/privacy" className="hover:text-[var(--color-pink)] transition-colors">{tf("privacy_policy")}</Link></li>
+            <li><Link href="/terms" className="hover:text-[var(--color-pink)] transition-colors">{tf("terms_of_service")}</Link></li>
+            <li><Link href="/support" className="hover:text-[var(--color-pink)] transition-colors">{tf("support")}</Link></li>
+          </ul>
         </div>
       </div>
-      
-      <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-black/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--color-gray)]/60">
+
+      <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-black/5 text-xs text-[var(--color-gray)]/60">
         <p>{tf("copyright", { year: new Date().getFullYear().toString() })}</p>
-        <div className="flex gap-4">
-          <Link href="/privacy" className="hover:text-[var(--color-gray)]">{tf("privacy_policy")}</Link>
-          <Link href="/terms" className="hover:text-[var(--color-gray)]">{tf("terms_of_service")}</Link>
-        </div>
       </div>
     </footer>
   );

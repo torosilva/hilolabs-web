@@ -18,10 +18,25 @@ const fraunces = Fraunces({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "HiloLabs | Where fashion meets technology",
-  description: "The AI infrastructure for Latina-led fashion brands",
+const META = {
+  en: {
+    title: "HiloLabs | Custom software for SMBs",
+    description: "We design, build, and run mobile apps, internal systems, ecommerce integrations, and AI agents for small and mid-sized businesses in Mexico, Colombia, and the U.S.",
+  },
+  es: {
+    title: "HiloLabs | Software a la medida para pymes",
+    description: "Diseñamos, construimos y operamos apps, sistemas internos, integraciones de ecommerce y agentes de IA para pymes en México, Colombia y EE.UU.",
+  },
 };
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return META[locale === "es" ? "es" : "en"];
+}
 
 export default async function LocaleLayout({
   children,

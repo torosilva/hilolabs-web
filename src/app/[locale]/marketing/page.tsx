@@ -58,7 +58,7 @@ export default function MarketingPage() {
               {t("cta_desc")}
             </p>
             <Link
-              href="/book-demo"
+              href="/contact"
               className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all active:scale-95 mx-auto"
             >
               {t("cta_button")}

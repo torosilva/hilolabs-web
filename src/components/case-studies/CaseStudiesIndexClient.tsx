@@ -43,7 +43,7 @@ export default function CaseStudiesIndexClient() {
           <motion.div {...fadeInUp}>
             <Link
               href="/case-studies/fuxia"
-              className="group block bg-[#130E1B] border border-white/5 rounded-3xl overflow-hidden hover:border-[var(--color-fuchsia)]/40 transition-colors shadow-2xl"
+              className="group block bg-[var(--color-section-bg)] border border-black/5 rounded-3xl overflow-hidden hover:border-[var(--color-fuchsia)]/40 transition-colors shadow-sm"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -51,9 +51,8 @@ export default function CaseStudiesIndexClient() {
                   alt="Fuxia Ballerinas"
                   fill
                   sizes="(max-width: 768px) 100vw, 600px"
-                  className="object-cover opacity-80 mix-blend-screen group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#130E1B] via-transparent to-transparent" />
               </div>
               <div className="p-8">
                 <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-fuchsia)] mb-4">
@@ -74,7 +73,7 @@ export default function CaseStudiesIndexClient() {
 
           <motion.div
             {...fadeInUp}
-            className="bg-white/[0.02] border border-dashed border-white/10 rounded-3xl p-10 flex flex-col items-center justify-center text-center min-h-[400px]"
+            className="border border-dashed border-black/15 rounded-3xl p-10 flex flex-col items-center justify-center text-center min-h-[400px]"
           >
             <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-gray)] mb-4">
               {t("more_eyebrow")}
@@ -90,11 +89,11 @@ export default function CaseStudiesIndexClient() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-6 border-t border-white/5 text-center">
+      <section className="py-24 px-6 border-t border-black/5 text-center">
         <motion.div {...fadeInUp}>
           <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-8">{t("cta_final")}</h2>
           <Link
-            href="/book-demo"
+            href="/contact"
             className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95 shadow-lg"
           >
             {t("cta_final_button")}

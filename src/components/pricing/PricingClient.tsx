@@ -47,7 +47,7 @@ export default function PricingClient() {
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]/40" /> {t("feature_starter_2")}</li>
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]/40" /> {t("feature_starter_3")}</li>
               </ul>
-              <Link href="/book-demo" className="block w-full py-4 text-center border border-black/20 rounded-full text-[var(--foreground)] hover:bg-black/5 transition-colors">
+              <Link href="/contact" className="block w-full py-4 text-center border border-black/20 rounded-full text-[var(--foreground)] hover:bg-black/5 transition-colors">
                 {t("book_demo")}
               </Link>
             </motion.div>
@@ -69,7 +69,7 @@ export default function PricingClient() {
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]" /> {t("feature_growth_3")}</li>
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]" /> {t("feature_growth_4")}</li>
               </ul>
-              <Link href="/book-demo" className="block w-full py-4 text-center bg-[var(--color-fuchsia)] rounded-full text-white hover:bg-opacity-90 transition-colors shadow-lg">
+              <Link href="/contact" className="block w-full py-4 text-center bg-[var(--color-fuchsia)] rounded-full text-white hover:bg-opacity-90 transition-colors shadow-lg">
                 {t("book_demo")}
               </Link>
             </motion.div>
@@ -88,7 +88,7 @@ export default function PricingClient() {
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]/40" /> {t("feature_scale_3")}</li>
                 <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[var(--color-fuchsia)]/40" /> {t("feature_scale_4")}</li>
               </ul>
-              <Link href="/book-demo" className="block w-full py-4 text-center border border-black/20 rounded-full text-[var(--foreground)] hover:bg-black/5 transition-colors">
+              <Link href="/contact" className="block w-full py-4 text-center border border-black/20 rounded-full text-[var(--foreground)] hover:bg-black/5 transition-colors">
                 {t("book_demo")}
               </Link>
             </motion.div>

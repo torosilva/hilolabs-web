@@ -64,7 +64,7 @@ export default function SupportPage() {
                 </p>
               </div>
               <Link
-                href="/book-demo"
+                href="/contact"
                 className="inline-block text-center bg-[var(--color-fuchsia)] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all active:scale-95 w-full mt-4"
               >
                 {t("cta_button")}

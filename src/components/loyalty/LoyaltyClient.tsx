@@ -111,7 +111,7 @@ export default function LoyaltyClient() {
                     <span className="text-4xl font-light">${tier === "starter" ? "199" : tier === "growth" ? "499" : "999"}</span>
                     <span className="text-gray-400 font-mono text-sm mb-1">/mo</span>
                   </div>
-                  <Link href="/book-demo" className={`block w-full py-3 rounded-full text-center font-medium transition-colors ${tier === "growth" ? "bg-[var(--color-fuchsia)] text-white hover:bg-opacity-90" : "bg-black/5 text-black hover:bg-black/10"}`}>
+                  <Link href="/contact" className={`block w-full py-3 rounded-full text-center font-medium transition-colors ${tier === "growth" ? "bg-[var(--color-fuchsia)] text-white hover:bg-opacity-90" : "bg-black/5 text-black hover:bg-black/10"}`}>
                     {t("starter_button")}
                   </Link>
                 </div>
@@ -159,7 +159,7 @@ export default function LoyaltyClient() {
       <section className="py-24 px-6 border-t border-black/5 text-center">
         <motion.div {...fadeInUp}>
           <h2 className="font-serif text-4xl text-[var(--color-cream)] mb-8">{t("cta_question")}</h2>
-          <Link href="/book-demo" className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95 shadow-lg">
+          <Link href="/contact" className="inline-block bg-[var(--color-fuchsia)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all active:scale-95 shadow-lg">
             {t("cta_final")}
           </Link>
         </motion.div>

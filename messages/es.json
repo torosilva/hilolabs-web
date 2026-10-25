@@ -1,37 +1,63 @@
 {
   "Home": {
-    "hero_eyebrow": "Infraestructura de Moda Potenciada por AI",
-    "hero_h1": "Donde la moda encuentra la tecnología.",
-    "hero_sub": "La plataforma de lealtad, ecommerce y AI impulsando la próxima generación de marcas de moda latinas.",
-    "cta_book_demo": "Agendar demo",
-    "cta_see_fuxia": "Mira cómo Fuxia usa Hilo →",
-    "trust_bar": "Confianza de marcas fundadas por operadores en México, Colombia y EE.UU.",
-    "problem_text": "Vendes por Instagram. Tu link en bio te lleva a un sitio que armó tu primo en WooCommerce. No tienes lealtad, no capturas emails, y cada cliente que compra una vez no vuelve. Sabes que necesitas 'algo digital' pero cada cotización suena como Mandarín. Te ofrecen sitios sin estrategia, agencias sin tecnología, y software sin gente. Por eso construimos Hilo.",
-    "pillar_1_title": "Un solo hilo conecta todo",
-    "pillar_1_desc": "Sitio web + lealtad + AI + data en una sola plataforma.",
-    "pillar_2_title": "Construido por operadores",
-    "pillar_2_desc": "Probado en Fuxia antes de venderse a nadie más.",
-    "pillar_3_title": "AI nativa, no añadida",
-    "pillar_3_desc": "Agentes que trabajan en WhatsApp, web, app y back-office.",
-    "product_loyalty_title": "Hilo Loyalty",
-    "cta_explore_loyalty": "Explorar Hilo Loyalty →",
-    "fuxia_quote": "\"Hilo es lo que me hubiera ahorrado tres años de errores cuando empecé Fuxia.\"",
-    "fuxia_author": "Carolina Muñoz, co-founder",
-    "cta_read_fuxia": "Lee el caso completo de Fuxia →",
-    "ai_stack_title": "AI Stack",
-    "pricing_teaser": "Desde $199/mes",
-    "cta_see_pricing": "Ver precios completos",
-    "final_cta_title": "¿Lista para tejer tecnología en tu marca?",
-    "cta_talk_founder": "Hablar con un fundador"
+    "hero_eyebrow": "Software a la medida para pymes",
+    "hero_h1": "Software hecho a la medida de",
+    "hero_h1_accent": "cómo funciona tu negocio.",
+    "hero_sub": "Diseñamos, construimos y operamos apps, sistemas internos, integraciones de ecommerce y agentes de IA para pequeñas y medianas empresas en México, Colombia y EE.UU. Sin plantillas genéricas: software que se adapta a tu operación.",
+    "cta_primary": "Cotiza tu proyecto",
+    "cta_secondary": "Ver el caso Fuxia →",
+    "hero_card_title": "Funcionando en producción",
+    "hero_card_items": [
+      "App de clientas · iOS y Android",
+      "Sistema de operación · 4 tiendas + bodega",
+      "Tienda en línea · México y Colombia",
+      "Asistente de IA · web y app"
+    ],
+    "hero_card_footer": "Fuxia Ballerinas · hecho por HiloLabs",
+    "proof_title": "En producción hoy con Fuxia Ballerinas",
+    "proof_items": [
+      "App publicada en App Store y Google Play",
+      "Sistema de operación para 4 tiendas + bodega",
+      "Tienda en línea en 2 países y monedas",
+      "Asistente de IA en la web y en la app"
+    ],
+    "problem_text": "Tu negocio creció con Excel, WhatsApp y tres sistemas que no se hablan entre sí. El software de caja te obliga a trabajar a su manera, y las agencias te entregan una página y desaparecen. Nosotros construimos lo que tu operación realmente necesita, y nos quedamos a operarlo contigo.",
+    "services_eyebrow": "Lo que construimos",
+    "services_title": "Un solo equipo, del primer boceto a producción.",
+    "services_cta": "Ver todos los servicios →",
+    "case_eyebrow": "Caso de éxito",
+    "case_title": "Fuxia 360: de una app de lealtad al sistema operativo de una marca de calzado.",
+    "case_desc": "App, sistema de operación, asistente de IA e integraciones de tienda para una marca con tiendas en línea y físicas en México y Colombia.",
+    "metric_1_val": "30%",
+    "metric_1_label": "Crecimiento mensual",
+    "metric_2_val": "12k+",
+    "metric_2_label": "Miembros",
+    "metric_3_val": "2.4x",
+    "metric_3_label": "Ticket promedio",
+    "fuxia_quote": "\"Hilo es lo que me habría ahorrado tres años de errores cuando empecé Fuxia.\"",
+    "fuxia_author": "Carolina Muñoz",
+    "fuxia_role": "Cofundadora, Fuxia Ballerinas",
+    "cta_read_fuxia": "Leer el caso completo →",
+    "process_eyebrow": "Cómo trabajamos",
+    "process_title": "Etapas claras, software funcionando desde temprano.",
+    "product_eyebrow": "Nuestro producto",
+    "product_title": "Hilo: lealtad e IA para marcas de retail.",
+    "product_desc": "La app de lealtad, la integración con la tienda y el asistente de IA que construimos para Fuxia, empaquetados como producto para marcas que quieren arrancar más rápido que con un desarrollo 100% a la medida.",
+    "product_cta": "Conoce Hilo →",
+    "final_cta_title": "¿Hay un proceso en tu negocio que debería ser software?",
+    "final_cta_sub": "Cuéntanos cómo funciona tu negocio hoy. Te respondemos con un diagnóstico y una propuesta.",
+    "cta_whatsapp": "Escríbenos por WhatsApp"
   },
   "Navigation": {
-    "loyalty": "Hilo Loyalty",
-    "commerce": "Commerce",
-    "ai": "AI Stack",
-    "case_studies": "Casos de Éxito",
+    "services": "Servicios",
+    "case_studies": "Casos",
+    "hilo": "Hilo",
     "about": "Nosotros",
-    "pricing": "Precios",
-    "book_demo": "Agendar Demo"
+    "pricing": "Precios de Hilo",
+    "contact": "Contacto",
+    "cta": "Cotiza tu proyecto",
+    "loyalty": "Hilo",
+    "menu": "Menú"
   },
   "Loyalty": {
     "hero_h1": "La plataforma de lealtad, storefront y AI construida para la moda latina.",
@@ -74,82 +100,113 @@
     "comparison_requires_agency": "✕ Requiere agencia",
     "cta_question": "¿Lista para ver a Hilo en acción?"
   },
-  "AI": {
-    "hero_h1": "Siete agentes AI trabajando para tu marca. 24/7.",
-    "hero_sub": "No es un chatbot añadido al final. Es AI nativa integrada directamente en tus operaciones, ventas y soporte.",
-    "agent_1_title": "1. Servicio al Cliente",
-    "agent_1_desc": "Maneja el 90% de consultas entrantes de WhatsApp y email al instante, sonando exactamente como tu marca.",
-    "agent_1_stack": "Claude Sonnet 4.6 + Hilo Knowledge Base",
-    "agent_2_title": "2. AI Stylist",
-    "agent_2_desc": "Recomienda atuendos completos basados en compras pasadas, aumentando el AOV y tamaño del carrito.",
-    "agent_2_stack": "Gemini 1.5 Pro + Vertex AI Vector Search",
-    "agent_3_title": "3. Generación de Contenido",
-    "agent_3_desc": "Genera miles de descripciones de productos, variaciones de anuncios y copies para redes sociales.",
-    "agent_3_stack": "Stable Diffusion + Claude",
-    "agent_4_title": "4. Tallaje y Ajuste",
-    "agent_4_desc": "Predice el tallaje correcto mediante computer vision y datos históricos, reduciendo devoluciones en un 40%.",
-    "agent_4_stack": "Modelo Custom de Computer Vision",
-    "agent_5_title": "5. Probador Virtual & Estilista por Cuerpo",
-    "agent_5_desc": "La clienta sube una foto y ve cómo le queda cada prenda en su cuerpo real. El agente analiza silueta y tipo de cuerpo para sugerir las piezas que mejor le favorecen y hacer cross-sell con productos complementarios de la marca.",
-    "agent_5_stack": "Diffusion Try-On (IDM-VTON) + Segmentación de Cuerpo y Pose + Gemini 1.5 Pro Vision",
-    "agent_6_title": "6. AI Sales Closer",
-    "agent_6_desc": "Convierte leads inbound de WhatsApp en ventas sin intervención humana. Da seguimiento por email y WhatsApp con cadencia inteligente; si tras varios toques la clienta no compra, ofrece un descuento dentro de los límites de la marca y cierra la venta por canal digital.",
-    "agent_6_stack": "Claude Sonnet 4.6 + Twilio (WhatsApp) + Resend (Email) + Máquina de estados de cadencia",
-    "agent_7_title": "7. Dashboard Ejecutivo",
-    "agent_7_desc": "Tu co-founder de AI que responde preguntas sobre tus métricas en lenguaje natural.",
-    "agent_7_stack": "SQL Agent + Gemini 1.5 Pro",
-    "tech_stack_title": "El Stack Técnico",
-    "cta_final": "¿Quieres este stack en tu marca? → Agendar demo",
-    "try_on_suggest": "+3 piezas que te favorecen →"
-  },
   "CaseStudiesIndex": {
-    "hero_eyebrow": "Casos de Éxito",
-    "hero_h1": "Historias de marcas tejidas con Hilo.",
-    "hero_sub": "Cómo las marcas de moda lideradas por latinas usan Hilo Loyalty, Commerce y Agentes de IA para crecer sin quemarse.",
+    "hero_eyebrow": "Casos",
+    "hero_h1": "Software real, funcionando en un negocio real.",
+    "hero_sub": "No mostramos maquetas. Cada caso aquí está en producción, con clientes y ventas reales.",
     "read_case_study": "Leer el caso →",
     "more_eyebrow": "Próximamente",
-    "more_title": "Más historias en el telar.",
-    "more_sub": "Lanzamos con nuevas marcas cada mes. ¿Quieres ser el próximo caso de éxito?",
-    "cta_final": "¿Lista para escribir el tuyo?",
-    "cta_final_button": "Agenda un demo"
+    "more_title": "Tu negocio puede ser el siguiente.",
+    "more_sub": "Estamos construyendo con nuevos clientes. Cuéntanos de tu proyecto.",
+    "cta_final": "¿Listo para construir el tuyo?",
+    "cta_final_button": "Cotiza tu proyecto"
   },
   "CaseStudy": {
-    "hero_eyebrow": "Caso de Éxito: Fuxia Ballerinas",
-    "hero_h1": "De boutique local a un imperio AI-first.",
-    "hero_sub": "Cómo Fuxia utilizó Hilo Loyalty y Agentes de IA para lograr un crecimiento mensual (MoM) del 30%.",
-    "metrics_title": "Impacto en Tiempo Real",
-    "metric_1_label": "Crecimiento MoM",
+    "hero_eyebrow": "Caso · Fuxia Ballerinas",
+    "hero_h1": "De una app de lealtad al sistema operativo de una marca de calzado.",
+    "hero_sub": "Fuxia vende balerinas en línea y en tiendas físicas en México y Colombia. En siete meses construimos su app, su sistema de operación, su asistente de IA y las integraciones que los conectan con su tienda en línea.",
+    "metrics_title": "Resultados",
+    "metric_1_label": "Crecimiento mensual",
     "metric_1_val": "+30%",
-    "metric_2_label": "Tasa de Retención",
-    "metric_2_val": "68%",
-    "metric_3_label": "Reducción de CAC",
-    "metric_3_val": "-40%",
-    "story_title": "La Historia",
-    "story_p1": "Fuxia Ballerinas comenzó como una marca local muy querida con un producto increíble pero con tecnología fragmentada. Sus clientas amaban los zapatos, pero lograr que compraran una segunda o tercera vez era un proceso manual y costoso dependiente de los algoritmos de Instagram.",
-    "story_p2": "Al implementar HiloLabs, Fuxia lanzó una aplicación nativa iOS/Android con un Motor de Lealtad embebido y un AI Stylist impulsado por Gemini 1.5 Pro. Ahora, la marca no espera a que las clientas regresen; la IA las trae de vuelta.",
-    "results_title": "Los Resultados",
-    "result_1": "Automatización del 90% de las consultas de tallaje mediante Computer Vision.",
-    "result_2": "Aumento en la tasa de recompra del 15% al 68%.",
-    "result_3": "Crecimiento sostenible del 30% MoM en ingresos sin aumentar el gasto publicitario.",
-    "cta_final": "Crece tu marca como Fuxia"
+    "metric_2_label": "Miembros",
+    "metric_2_val": "12k+",
+    "metric_3_label": "Ticket promedio",
+    "metric_3_val": "2.4x",
+    "challenge_title": "El reto",
+    "challenge_p": "Fuxia tenía tienda en línea, tiendas físicas y clientas que amaban el producto, pero ventas, inventario y clientas vivían en lugares separados. El inventario no cuadraba entre tiendas y web, las ventas en tienda no quedaban ligadas a una clienta y no había una forma sencilla de hacer que alguien volviera a comprar.",
+    "built_title": "Lo que construimos",
+    "built": [
+      {
+        "title": "App Fuxia · iOS y Android",
+        "desc": "Tarjeta de lealtad con QR, puntos y niveles, catálogo sincronizado con la tienda, favoritos, historial de compras, referidos y notificaciones push. Las clientas entran con un código por WhatsApp."
+      },
+      {
+        "title": "Fuxia 360",
+        "desc": "El sistema interno de operación: catálogo maestro, inventario en bodega y 4 tiendas, ventas en tienda, apartados, pedidos a la medida, vista 360 de clientas y herramientas móviles para vendedoras."
+      },
+      {
+        "title": "Hilo, el asistente de IA",
+        "desc": "Atiende a las clientas en la web y en la app con el catálogo, inventario y políticas reales, y pasa la conversación a la bandeja del equipo cuando hace falta una persona."
+      },
+      {
+        "title": "Tienda y datos",
+        "desc": "Plugins a la medida en fuxiaballerinas.com, catálogo e inventario publicados desde Fuxia 360, medición de compras del lado del servidor y datos diarios de inversión en anuncios."
+      }
+    ],
+    "timeline_title": "Cronología",
+    "timeline": [
+      {
+        "date": "Abr 2026",
+        "text": "Primera versión de la app de lealtad"
+      },
+      {
+        "date": "May 2026",
+        "text": "Hilo, el asistente de IA, primera versión"
+      },
+      {
+        "date": "Sep 2026",
+        "text": "Arranca Fuxia 360: inventario, tiendas y clientas"
+      },
+      {
+        "date": "Oct 2026",
+        "text": "Fuxia 360 en producción con ventas reales en tienda"
+      }
+    ],
+    "under_hood_title": "Por dentro",
+    "under_hood": [
+      {
+        "val": "600+",
+        "label": "commits en 7 meses"
+      },
+      {
+        "val": "32",
+        "label": "funciones de backend"
+      },
+      {
+        "val": "140+",
+        "label": "migraciones de base de datos"
+      },
+      {
+        "val": "2",
+        "label": "países y monedas"
+      }
+    ],
+    "stack_title": "Stack",
+    "cta_final": "¿Quieres algo así para tu negocio?",
+    "cta_button": "Cotiza tu proyecto"
   },
   "About": {
-    "hero_h1": "Creado por operadores. Para operadores.",
-    "hero_sub": "No somos una agencia digital. Somos fundadores de moda que construimos la tecnología que desesperadamente necesitábamos.",
-    "mission_title": "Nuestra Misión",
-    "mission_desc": "Equipar a marcas de moda latinas con infraestructura de IA y lealtad de nivel enterprise, nivelando el campo de juego contra el fast-fashion.",
-    "founder_title": "El Equipo",
-    "founder_desc": "Fundado por el equipo detrás de Fuxia Ballerinas. Hemos empaquetado todo nuestro playbook operativo, estrategias de marketing y agentes de IA en HiloLabs.",
-    "meet_founders": "Conoce a los fundadores"
-  },
-  "Commerce": {
-    "hero_h1": "Hilo Commerce",
-    "hero_sub": "Storefronts de WooCommerce editoriales y de alta conversión diseñados para la moda.",
-    "feature_1_title": "Plantillas Productizadas",
-    "feature_1_desc": "Deja de pagar a agencias por desarrollos a medida. Desplegamos temas premium y ultra rápidos desde el primer día.",
-    "feature_2_title": "Integración Nativa de IA",
-    "feature_2_desc": "Cada storefront viene pre-configurado con nuestro AI Stylist y herramientas de tallaje por Computer Vision.",
-    "cta_final": "Mejora tu Tienda"
+    "hero_h1": "Construimos software como operadores.",
+    "hero_sub": "HiloLabs nació dentro de Fuxia Ballerinas, una marca de calzado con tiendas en línea y físicas en México y Colombia. Construimos la tecnología que necesitaba. Hoy la construimos para otros negocios.",
+    "mission_title": "En qué creemos",
+    "mission_desc": "Las pequeñas y medianas empresas merecen software tan bueno como el de las grandes, hecho a partir de cómo trabajan.",
+    "values": [
+      {
+        "title": "Probado en un negocio real",
+        "desc": "Lo que ofrecemos ya funcionó antes en un negocio con clientes, tiendas y ventas reales."
+      },
+      {
+        "title": "Hecho a partir de tu proceso",
+        "desc": "Partimos de cómo trabaja tu equipo hoy, no de una plantilla."
+      },
+      {
+        "title": "Nos quedamos después del lanzamiento",
+        "desc": "Lanzamos, monitoreamos y seguimos mejorando contigo."
+      }
+    ],
+    "founder_title": "El equipo",
+    "founder_desc": "HiloLabs lo dirige Mario Silva, socio de Fuxia Ballerinas. Diseñamos, construimos y operamos todo lo que entregamos, y usamos IA en todo nuestro flujo de trabajo para avanzar más rápido sin recortar calidad.",
+    "meet_founders": "Hablemos"
   },
   "Pricing": {
     "hero_h1": "Precios simples y transparentes.",
@@ -180,26 +237,15 @@
     "feature_scale_3": "Computer Vision a la medida",
     "feature_scale_4": "Account Manager dedicado"
   },
-  "BookDemo": {
-    "hero_h1": "Agendar llamada de descubrimiento",
-    "hero_sub": "Hablemos de cómo HiloLabs puede tejer tecnología en tu marca.",
-    "meeting_title": "Llamada de descubrimiento",
-    "duration": "30 min",
-    "location": "Google Meet",
-    "description": "Analizaremos tu stack tecnológico actual, tus objetivos y veremos si Hilo Loyalty es la opción ideal para escalar tu marca.",
-    "pending_title": "Integración de calendario pendiente",
-    "pending_desc": "(Este espacio está reservado para el embed de Cal.com. Una vez que se proporcione el enlace de calendario de Mario, se inyectará aquí directamente)."
-  },
   "Footer": {
-    "tagline": "La infraestructura de IA para marcas de moda lideradas por latinas.",
+    "tagline": "Software a la medida para pequeñas y medianas empresas.",
     "usa_office": "30 N Gould St Ste R, Sheridan, WY 82801",
-    "mx_office": "Operaciones en Ciudad de México",
     "phone": "Teléfono: +1 (307) 363-7036",
     "email": "Correo: info@hilolabs.ai",
-    "investors": "Relaciones con inversionistas",
-    "playbook_title": "Obtén el Playbook",
-    "playbook_desc": "Obtén el manual exacto que construimos para Fuxia. Mensual, sin rodeos.",
-    "playbook_button": "Unirse",
+    "services_title": "Servicios",
+    "company_title": "Empresa",
+    "legal_title": "Legal",
+    "support": "Soporte",
     "copyright": "© {year} HiloLabs.ai LLC. Todos los derechos reservados.",
     "privacy_policy": "Política de Privacidad",
     "terms_of_service": "Términos de Servicio"
@@ -261,5 +307,124 @@
     "cta_title": "Lleva tu marca al siguiente nivel",
     "cta_desc": "Descubre cómo podemos automatizar tus operaciones y lanzar la aplicación móvil de tu marca de moda.",
     "cta_button": "Ver Demostración"
+  },
+  "Services": {
+    "hero_eyebrow": "Servicios",
+    "hero_h1": "Software a la medida para negocios que ya no caben en Excel.",
+    "hero_sub": "Tomamos un proceso que hoy vive en hojas de cálculo, WhatsApp y la memoria de alguien, y lo convertimos en software que tu equipo sí usa. Todo lo que ves abajo está funcionando en producción en un negocio real.",
+    "proof_label": "En producción",
+    "items": [
+      {
+        "id": "apps",
+        "title": "Apps móviles",
+        "desc": "Apps nativas para iOS y Android, para tus clientes o para tu equipo, publicadas con tu marca en App Store y Google Play.",
+        "bullets": [
+          "Acceso con código por WhatsApp",
+          "Lealtad, puntos, niveles y tarjeta QR",
+          "Notificaciones push",
+          "Actualizaciones al instante, sin esperar revisión de la tienda"
+        ],
+        "proof": "App de Fuxia Ballerinas, publicada en App Store y Google Play."
+      },
+      {
+        "id": "operations",
+        "title": "Sistemas de operación",
+        "desc": "Inventario, punto de venta, pedidos y clientes en un solo sistema hecho a partir de tu proceso, no al revés.",
+        "bullets": [
+          "Inventario por ubicación, con traspasos y conteos",
+          "Ventas en tienda, apartados y pedidos a la medida",
+          "Vista 360 de clientes y CRM",
+          "Accesos por rol: dueños, encargados y vendedores"
+        ],
+        "proof": "Fuxia 360 opera una bodega y 4 tiendas físicas."
+      },
+      {
+        "id": "commerce",
+        "title": "Ecommerce e integraciones",
+        "desc": "Conectamos tu tienda en línea con todo lo demás, para que catálogo, inventario, pagos y pedidos estén sincronizados.",
+        "bullets": [
+          "WooCommerce, o cualquier plataforma con API",
+          "Catálogo e inventario publicados desde una sola fuente",
+          "Pagos: Mercado Pago, ePayco, PayPal",
+          "Tiendas multipaís y multimoneda"
+        ],
+        "proof": "fuxiaballerinas.com: tiendas de México y Colombia sincronizadas con Fuxia 360."
+      },
+      {
+        "id": "ai",
+        "title": "Agentes de IA",
+        "desc": "Asistentes que conocen tu catálogo, inventario y políticas, atienden a tus clientes y pasan la conversación a una persona cuando hace falta.",
+        "bullets": [
+          "Respuestas basadas en tu catálogo e inventario reales",
+          "Widget en tu web, chat en tu app y WhatsApp",
+          "Escalamiento a la bandeja de tu equipo",
+          "Agentes analistas que responden preguntas sobre tus propios datos"
+        ],
+        "proof": "Hilo, el asistente de IA de Fuxia en la web y en la app."
+      },
+      {
+        "id": "data",
+        "title": "Datos y medición",
+        "desc": "Sabe qué es lo que realmente vende. Conectamos analítica y tableros para que las decisiones salgan de datos, no de corazonadas.",
+        "bullets": [
+          "Medición de compras del lado del servidor (GA4)",
+          "Inversión en anuncios vs. ventas (Meta Ads)",
+          "Tableros de ventas e inventario",
+          "Pruebas automáticas que compran en tu tienda como un cliente"
+        ],
+        "proof": "Fuxia: GA4 del lado del servidor y datos diarios de inversión en Meta."
+      }
+    ],
+    "fit_title": "Te conviene si…",
+    "fit_items": [
+      "Ya vendes y tienes equipo, pero tu operación vive en Excel y WhatsApp.",
+      "El software de caja no se adapta a cómo trabajas.",
+      "Necesitas un sistema en lugar de cinco suscripciones que no se hablan.",
+      "Operas en español e inglés, en México, Colombia o EE.UU."
+    ],
+    "process_steps": [
+      {
+        "title": "Diagnóstico",
+        "desc": "Entendemos cómo funciona tu negocio hoy: procesos, herramientas y dónde se pierden tiempo y dinero."
+      },
+      {
+        "title": "Propuesta",
+        "desc": "Alcance, etapas y cotización claros. Sabes qué vas a recibir antes de empezar."
+      },
+      {
+        "title": "Construcción por etapas",
+        "desc": "Entregamos partes funcionando desde temprano, las probamos con tu equipo real y ajustamos."
+      },
+      {
+        "title": "Operación y mejora",
+        "desc": "Lanzamos, monitoreamos y seguimos mejorando. Tu software crece con tu negocio."
+      }
+    ],
+    "stack_title": "Tecnología con la que trabajamos",
+    "cta_title": "Hablemos de tu proyecto.",
+    "cta_button": "Cotiza tu proyecto"
+  },
+  "Contact": {
+    "hero_h1": "Cuéntanos de tu proyecto.",
+    "hero_sub": "Con unos cuantos datos podemos empezar. Te respondemos con los siguientes pasos.",
+    "name": "Tu nombre",
+    "company": "Empresa",
+    "need": "¿Qué necesitas?",
+    "needs": [
+      "App móvil",
+      "Sistema de operación",
+      "Ecommerce e integraciones",
+      "Agente de IA",
+      "Datos y medición",
+      "Aún no lo sé"
+    ],
+    "message": "Cuéntanos cómo funciona tu negocio hoy y qué te gustaría cambiar.",
+    "submit": "Enviar por correo",
+    "submit_note": "Se abrirá tu app de correo con el mensaje listo para enviar.",
+    "or": "O escríbenos directo",
+    "email_label": "Correo",
+    "whatsapp_label": "WhatsApp",
+    "email_subject": "Consulta de proyecto",
+    "required": "Obligatorio"
   }
 }
